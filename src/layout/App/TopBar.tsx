@@ -28,24 +28,10 @@ const TopBar: React.FC = () => {
         className={classnames('navbar-menu', { 'is-active': isMenuActive })}
         id="navMenu"
       >
-        <div className="navbar-start"></div>
         <div className="navbar-end">
-          <NavLink
-            onClick={() => setIsMenuActive(false)}
-            className="navbar-item"
-            to="/page"
-          >
-            Another page
-          </NavLink>
           <div className="navbar-item">
             <div className="buttons">
-              <NavLink
-                onClick={() => setIsMenuActive(false)}
-                className="button is-primary"
-                to="/login"
-              >
-                Login
-              </NavLink>
+              <button className="button is-primary">Logout</button>
             </div>
           </div>
         </div>
