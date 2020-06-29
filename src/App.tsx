@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+import TopBar from './layout/TopBar';
+import Routes from './layout/Routes';
+import Footer from './layout/Footer';
+import Menu from './layout/Menu';
+import Section from './components/bulma/layout/Section/Section';
+import Container from './components/bulma/layout/Container/Container';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <TopBar />
+      <Section>
+        <Container fluid>
+          <div className="columns">
+            <div className="column is-one-quarter">
+              <Menu />
+            </div>
+            <div className="column">
+              <Routes />
+            </div>
+          </div>
+        </Container>
+      </Section>
+      <Footer />
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
