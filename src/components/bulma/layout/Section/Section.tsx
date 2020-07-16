@@ -13,11 +13,11 @@ type SectionProps = {
   size?: SectionSize;
 };
 
-const Section: React.FC<SectionProps> = ({ children, size = 'normal' }) => {
-  function getSizeClassName(size: SectionSize): string {
-    return sizeClassMap[size];
-  }
+function getSizeClassName(size: SectionSize): string {
+  return sizeClassMap[size];
+}
 
+const Section: React.FC<SectionProps> = ({ children, size = 'normal' }) => {
   return (
     <div className={classnames('section', getSizeClassName(size))}>
       {children}

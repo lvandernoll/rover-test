@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+[Bulma theme doc](https://jenil.github.io/bulmaswatch/slate/)
+
 ## Available Scripts
 
 ### `npm start`
