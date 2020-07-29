@@ -1,5 +1,5 @@
 import React from 'react';
-import Container from '../../components/bulma/layout/Container/Container';
+import Container from 'components/bulma/layout/Container';
 
 const Footer: React.FC = () => {
   return (

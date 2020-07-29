@@ -7,16 +7,24 @@ const TopBar: React.FC = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
 
   return (
-    <nav className="navbar" role="navigation" aria-label="main navigation">
+    <nav
+      className="navbar is-dark"
+      role="navigation"
+      aria-label="main navigation"
+    >
       <div className="navbar-brand">
         <NavLink className="navbar-item is-family-code" to="/">
-          <img src={logo} /> <h1>Competa Hero</h1>
+          <img src={logo} alt="Competa Hero" />
+          <h1>Competa Hero</h1>
         </NavLink>
         <button
-          className={`navbar-burger burger ${isMenuActive ? 'is-active' : ''}`}
+          className={classnames('navbar-burger burger', {
+            'is-active': isMenuActive,
+          })}
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }} // Swatch style seems to have a bug where the default color is white
           onClick={() => setIsMenuActive(!isMenuActive)}
           aria-label="menu"
-          aria-expanded="false"
+          aria-expanded={isMenuActive}
           data-target="navMenu"
         >
           <span aria-hidden="true"></span>
