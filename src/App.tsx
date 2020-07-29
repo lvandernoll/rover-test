@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { AppLayout } from './layout/App/AppLayout';
-import Home from './pages/Home/Home';
-import { AdminLayout } from './layout/Admin/AdminLayout';
+import { AppLayout } from 'layout/App/AppLayout';
+import Home from 'pages/Home/Home';
+import { AdminLayout } from 'layout/Admin/AdminLayout';
 
 const adminPrefix = '/admin';
 

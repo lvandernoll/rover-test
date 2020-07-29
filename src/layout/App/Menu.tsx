@@ -6,10 +6,10 @@ const Menu: React.FC = () => {
       <p className="menu-label">Main</p>
       <ul className="menu-list">
         <li>
-          <a>Dashboard</a>
+          <a href="#dashboard">Dashboard</a>
         </li>
         <li>
-          <a>Customers</a>
+          <a href="#customers">Customers</a>
         </li>
       </ul>
     </aside>

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import Section from '../../components/bulma/layout/Section/Section';
-import Container from '../../components/bulma/layout/Container/Container';
+import Section from 'components/bulma/layout/Section';
+import Container from 'components/bulma/layout/Container';
 
 export const AdminLayout: React.FC = ({ children }) => {
   return (
