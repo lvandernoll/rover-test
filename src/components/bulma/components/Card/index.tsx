@@ -6,7 +6,6 @@ import CardHeaderTitle from './CardHeaderTitle';
 import CardHeaderIcon from './CardHeaderIcon';
 import CardContent from './CardContent';
 import CardFooter from './CardFooter';
-import CardFooterItem from './CardFooterItem';
 
 type CardProps = {
   className?: string;
@@ -24,5 +23,4 @@ export {
   CardHeaderIcon,
   CardContent,
   CardFooter,
-  CardFooterItem,
 };
