@@ -1,5 +1,4 @@
 import React from 'react';
-import classnames from 'classnames';
 import {
   Card,
   CardHeader,
@@ -7,11 +6,11 @@ import {
   CardHeaderIcon,
   CardContent,
   CardFooter,
-  CardFooterItem,
 } from 'components/bulma/components/Card';
+import { Tag } from 'components/bulma/elements/Tags/index';
 
 const assignmentStatusMap = {
-  SUBMITTED: 'is-info',
+  REVIEW: 'is-info',
   ACCEPTED: 'is-success',
   REJECTED: 'is-danger',
 } as const;
@@ -23,12 +22,10 @@ type AssignmentProps = {
   points: number;
   description: string;
   status?: AssignmentStatus;
+  progressStatus?: boolean;
   noFooter?: boolean;
   onClick?: () => void;
 };
-
-const getAssignmentColor = (status: AssignmentStatus): string =>
-  assignmentStatusMap[status];
 
 const Assignment: React.FC<AssignmentProps> = ({
   title,
@@ -36,37 +33,25 @@ const Assignment: React.FC<AssignmentProps> = ({
   description,
   status,
   noFooter,
+  progressStatus,
   onClick,
 }) => (
-  <Card className="block">
+  <Card className="column is-one-third is-4">
     <CardHeader>
-      <CardHeaderTitle>{title}</CardHeaderTitle>
+      <CardHeaderTitle>
+        <span className="mr-5">{title}</span>
+        {progressStatus && <Tag color="info">{status}</Tag>}
+      </CardHeaderTitle>
       <CardHeaderIcon>{`${points}pt`}</CardHeaderIcon>
     </CardHeader>
     <CardContent>{description}</CardContent>
     {!noFooter && (
       <CardFooter>
-        <CardFooterItem>
-          {status ? (
-            <div
-              className={classnames(
-                'notification is-capitalized',
-                getAssignmentColor(status),
-              )}
-              style={{ borderRadius: '0' }}
-            >
-              {status.toLowerCase()}
-            </div>
-          ) : (
-            <button
-              className="button is-info"
-              style={{ borderRadius: '0', border: 'none' }}
-              onClick={onClick}
-            >
-              Submit this assignment
-            </button>
-          )}
-        </CardFooterItem>
+        <span>
+          <button className="button is-info is-left" onClick={onClick}>
+            Submit this assignment
+          </button>
+        </span>
       </CardFooter>
     )}
   </Card>
