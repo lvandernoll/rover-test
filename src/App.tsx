@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { AppLayout } from 'layout/App/AppLayout';
 import Home from 'pages/Home/Home';
+import Login from 'pages/Login/Login';
 import { AdminLayout } from 'layout/Admin/AdminLayout';
 
 const adminPrefix = '/admin';
@@ -15,7 +16,7 @@ const App: React.FC = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/login">
-          <p>Login page</p>
+          <Login />
         </Route>
 
         <Route path={getAdminPath('/:path?')} exact>
