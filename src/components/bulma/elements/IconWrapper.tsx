@@ -1,10 +1,10 @@
 import React from 'react';
 import classnames from 'classnames';
 import {
-  sizeMap,
-  textColorMap,
   Size,
   TextColor,
+  sizeMap,
+  textColorMap,
 } from 'components/bulma/options';
 
 type IconProps = {
