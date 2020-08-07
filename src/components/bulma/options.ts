@@ -37,18 +37,34 @@ const textColorMap = {
   danger: 'has-text-danger',
 } as const;
 
+const textAlignmentMap = {
+  centerd: 'has-text-centered',
+  justified: 'has-text-justified',
+  left: 'has-text-left',
+  right: 'has-text-right',
+} as const;
+
 const gridMap = {
   grid: 'columns',
+  gridCentered: 'columns is-centered',
   centered: 'is-half is-offset-one-quarter',
   centeredOneThird: 'is-one-third is-offset-one-third',
   centeredOneFifth: 'is-three-fifths is-offset-one-fifth',
   centeredHalf: 'is-half is-offset-half',
 } as const;
 
-export { baseSizeMap, sizeMap, colorMap, textColorMap, gridMap };
+export {
+  baseSizeMap,
+  sizeMap,
+  colorMap,
+  textColorMap,
+  gridMap,
+  textAlignmentMap,
+};
 
 export type BaseSize = keyof typeof baseSizeMap;
 export type Size = keyof typeof sizeMap;
 export type Color = keyof typeof colorMap;
 export type TextColor = keyof typeof textColorMap;
 export type Grid = keyof typeof gridMap;
+export type TextAlignment = keyof typeof textAlignmentMap;
