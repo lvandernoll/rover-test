@@ -65,6 +65,7 @@
     ]
   },
   "devDependencies": {
-    "husky": "^4.2.5"
+    "husky": "^4.2.5",
+    "react-hook-form": "^6.2.0"
   }
 }

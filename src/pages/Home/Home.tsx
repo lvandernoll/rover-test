@@ -1,18 +1,11 @@
 import React, { useEffect } from 'react';
-import Assignment from 'components/Assignment';
-import Box from 'components/bulma/elements/Box';
-import { Tabs, Tab } from 'components/bulma/components/Tabs';
 import useFetch from 'api/api';
-
-interface Assignments {
-  id: number;
-  title: string;
-  description: string;
-  points_maximum: number;
-}
+import { Box } from 'components/bulma/elements';
+import { Tab, Tabs, Assignments } from 'components/bulma/components';
+import { Assignment } from 'interfaces';
 
 const Home: React.FC = () => {
-  const [{ response, isLoading, error }, doFetch] = useFetch<Assignments[]>(
+  const [{ response, isLoading, error }, doFetch] = useFetch<Assignment[]>(
     'api/assignments',
   );
   useEffect(() => {
@@ -39,8 +32,8 @@ const Home: React.FC = () => {
           </Tabs>
           <Box withTabs>
             <div className="columns is-8 is-multiline">
-              {assignments?.map((assignment: Assignments) => (
-                <Assignment
+              {assignments?.map((assignment: Assignment) => (
+                <Assignments
                   key={assignment.id}
                   title={assignment.title}
                   description={assignment.description}
