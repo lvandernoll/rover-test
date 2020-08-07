@@ -33,13 +33,16 @@ const Login: React.FC = () => {
 
   return (
     <React.Fragment>
-      <div className="column is-half is-narrow">
+      <div
+        style={{ alignItems: 'center', height: '100vh' }}
+        className="columns is-centered"
+      >
         <Box>
-          <div className="column has-text-centered ">
+          <div className="has-text-centered px-5">
             <Field isCentered>
               <h1 className="title is-1">Code Heroes</h1>
               <div className="columns is-centered">
-                <div className="field has-addons">
+                <div className="field has-addons my-5">
                   <p className="control ">
                     <input className="input" onChange={handleChange}></input>
                   </p>
