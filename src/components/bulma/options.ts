@@ -37,9 +37,18 @@ const textColorMap = {
   danger: 'has-text-danger',
 } as const;
 
-export { baseSizeMap, sizeMap, colorMap, textColorMap };
+const gridMap = {
+  grid: 'columns',
+  centered: 'is-half is-offset-one-quarter',
+  centeredOneThird: 'is-one-third is-offset-one-third',
+  centeredOneFifth: 'is-three-fifths is-offset-one-fifth',
+  centeredHalf: 'is-half is-offset-half',
+} as const;
+
+export { baseSizeMap, sizeMap, colorMap, textColorMap, gridMap };
 
 export type BaseSize = keyof typeof baseSizeMap;
 export type Size = keyof typeof sizeMap;
 export type Color = keyof typeof colorMap;
 export type TextColor = keyof typeof textColorMap;
+export type Grid = keyof typeof gridMap;
