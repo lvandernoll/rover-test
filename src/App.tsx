@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { AppLayout } from 'layout/App/AppLayout';
 import Home from 'pages/Home/Home';
 import Login from 'pages/Login/Login';
@@ -8,6 +8,7 @@ import { AdminLayout } from 'layout/Admin/AdminLayout';
 import { IconContainer } from 'components/bulma/elements';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import requireAuth from 'requireAuth';
 
 const adminPrefix = '/admin';
 
@@ -20,7 +21,7 @@ const App: React.FC = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/login">
-          <Login />
+          {localStorage.getItem('token') ? <Redirect to="/" /> : <Login />}
         </Route>
 
         <Route path={getAdminPath('/:path?')} exact>
@@ -34,9 +35,18 @@ const App: React.FC = () => {
                   </Link>
                 </IconContainer>
               </Route>
-              <Route path={getAdminPath('/create-assignment')} exact>
-                <CreateAssignment />
-              </Route>
+              {/* old */}
+              {/* <Route path={getAdminPath('/create-assignment')} exact component={CreateAssignment} /> */}
+              {/* new */}
+              {/* <ProtectedRoute path={getAdminPath('/create-assignment')} exact component={CreateAssignment} /> */}
+              {/* new 2 */}
+              <Route
+                path={getAdminPath('/create-assignment')}
+                exact
+                component={requireAuth(CreateAssignment)}
+              />
+              {/* <PrivateRoute path={getAdminPath('/create-assignment')} exact component={CreateAssignment} /> */}
+              {/*  */}
             </Switch>
           </AdminLayout>
         </Route>
@@ -44,9 +54,7 @@ const App: React.FC = () => {
         <Route>
           <AppLayout>
             <Switch>
-              <Route path="/" exact>
-                <Home />
-              </Route>
+              <Route path="/" exact component={requireAuth(Home)} />
             </Switch>
           </AppLayout>
         </Route>

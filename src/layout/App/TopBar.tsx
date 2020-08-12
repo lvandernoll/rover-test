@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import logo from './logo.svg';
 import classnames from 'classnames';
 
 const TopBar: React.FC = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
+  const history = useHistory();
+  const logout = () => {
+    localStorage.clear();
+    history.push('/login');
+  };
 
   return (
     <nav
@@ -39,7 +44,9 @@ const TopBar: React.FC = () => {
         <div className="navbar-end">
           <div className="navbar-item">
             <div className="buttons">
-              <button className="button is-primary">Logout</button>
+              <button onClick={logout} className="button is-primary">
+                Logout
+              </button>
             </div>
           </div>
         </div>

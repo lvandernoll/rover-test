@@ -10,25 +10,31 @@ import {
   gridMap,
   textAlignmentMap,
 } from 'components/bulma/options';
-
 import { useHistory } from 'react-router-dom';
-interface Login {
+
+interface LoginResponse {
+  token: string;
+}
+
+interface loginFormInfo {
   email: string;
 }
 
-type loginFormInfo = Login;
-
 const Login: React.FC = () => {
   const { register, errors, handleSubmit } = useForm<loginFormInfo>();
-  const [{ response, isLoading, error }, doFetch] = useFetch<Login[]>('/login');
+  const [{ response, isLoading, error }, doFetch] = useFetch<LoginResponse>(
+    'api/login',
+  );
 
   const history = useHistory();
-
   useEffect(() => {
-    response && history.push('/');
+    if (response?.token) {
+      localStorage.setItem('token', response.token);
+      history.push('/');
+    }
   }, [response, history]);
 
-  const handleLoginRequest = (loginData: Login) => {
+  const handleLoginRequest = (loginData: loginFormInfo) => {
     doFetch({
       method: 'POST',
       headers: {
