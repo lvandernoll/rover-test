@@ -8,6 +8,8 @@ import Field from 'components/bulma/elements/Field';
 import Label from 'components/bulma/elements/Label';
 import Table from 'components/bulma/elements/Table';
 import IconContainer from 'components/bulma/elements/IconWrapper';
+import Input from 'components/bulma/elements/Input';
+import Error from 'components/bulma/elements/Error';
 
 export {
   Form,
@@ -22,4 +24,6 @@ export {
   Label,
   Table,
   IconContainer,
+  Input,
+  Error,
 };

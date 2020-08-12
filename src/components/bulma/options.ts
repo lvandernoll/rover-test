@@ -7,7 +7,7 @@ const baseSizeMap = {
 const sizeMap = {
   small: 'is-small',
   ...baseSizeMap,
-};
+} as const;
 
 const colorMap = {
   normal: '',

@@ -20,9 +20,7 @@ type loginFormInfo = Login;
 
 const Login: React.FC = () => {
   const { register, errors, handleSubmit } = useForm<loginFormInfo>();
-  const [{ response, isLoading, error }, doFetch] = useFetch<Login[]>(
-    'api/login',
-  );
+  const [{ response, isLoading, error }, doFetch] = useFetch<Login[]>('/login');
 
   const history = useHistory();
 
@@ -38,6 +36,7 @@ const Login: React.FC = () => {
       },
       data: {
         ...loginData,
+        email: loginData.email + '@competa.com',
       },
     });
   };
