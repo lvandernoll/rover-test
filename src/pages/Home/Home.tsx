@@ -13,6 +13,7 @@ const Home: React.FC = () => {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
+        Authorization: localStorage.token,
       },
     });
   }, [doFetch]);

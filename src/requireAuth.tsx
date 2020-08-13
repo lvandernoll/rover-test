@@ -11,15 +11,3 @@ export default (ComposedComponent: React.FC): React.FC => {
   };
   return Authenticate;
 };
-
-// interface IPrivateRouteProps extends RouteProps {
-//     isAuth: boolean // is authenticate route
-//     redirectPath: string // redirect path if don't authenticate route
-//   }
-// export const PrivateRoute: React.FC<RouteProps> = (props) => {
-//    return localStorage.token ? (
-//     <Route {...props} render={() => props.component} />
-//   ) : (
-//     <Redirect to={'/login'} />
-//   )
-// }

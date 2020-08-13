@@ -21,7 +21,7 @@ const App: React.FC = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/login">
-          {localStorage.getItem('token') ? <Redirect to="/" /> : <Login />}
+          {localStorage.token ? <Redirect to="/" /> : <Login />}
         </Route>
 
         <Route path={getAdminPath('/:path?')} exact>
@@ -35,18 +35,11 @@ const App: React.FC = () => {
                   </Link>
                 </IconContainer>
               </Route>
-              {/* old */}
-              {/* <Route path={getAdminPath('/create-assignment')} exact component={CreateAssignment} /> */}
-              {/* new */}
-              {/* <ProtectedRoute path={getAdminPath('/create-assignment')} exact component={CreateAssignment} /> */}
-              {/* new 2 */}
               <Route
                 path={getAdminPath('/create-assignment')}
                 exact
                 component={requireAuth(CreateAssignment)}
               />
-              {/* <PrivateRoute path={getAdminPath('/create-assignment')} exact component={CreateAssignment} /> */}
-              {/*  */}
             </Switch>
           </AdminLayout>
         </Route>
