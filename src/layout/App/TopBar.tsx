@@ -5,10 +5,9 @@ import classnames from 'classnames';
 
 const TopBar: React.FC = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
-  const history = useHistory();
   const logout = () => {
     localStorage.clear();
-    history.push('/login');
+    window.location.href = '/';
   };
 
   return (
