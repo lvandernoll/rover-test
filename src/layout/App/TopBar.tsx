@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import logo from './logo.svg';
 import classnames from 'classnames';
+import { useDispatch } from 'react-redux';
+import { logout } from 'redux/actions/user/actions';
 
 const TopBar: React.FC = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
-  const logout = () => {
-    localStorage.clear();
-    window.location.href = '/';
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
   };
 
   return (
@@ -43,7 +46,7 @@ const TopBar: React.FC = () => {
         <div className="navbar-end">
           <div className="navbar-item">
             <div className="buttons">
-              <button onClick={logout} className="button is-primary">
+              <button onClick={handleLogout} className="button is-primary">
                 Logout
               </button>
             </div>

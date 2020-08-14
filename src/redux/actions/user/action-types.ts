@@ -1,2 +1,4 @@
-export const INCREASE = 'INCREASE_COUNTER';
-export const DECREASE = 'DECREASE_COUNTER';
+export const LOGIN = 'LOGIN';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const LOGOUT = 'LOGOUT';

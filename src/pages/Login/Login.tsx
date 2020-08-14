@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import classnames from 'classnames';
-import useFetch from 'api/api';
 import Box from 'components/bulma/elements/Box';
 import Field from 'components/bulma/elements/Field';
 import { useForm } from 'react-hook-form';
@@ -10,11 +9,8 @@ import {
   gridMap,
   textAlignmentMap,
 } from 'components/bulma/options';
-import { useHistory } from 'react-router-dom';
-
-interface LoginResponse {
-  token: string;
-}
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/actions/user/actions';
 
 interface loginFormInfo {
   email: string;
@@ -22,29 +18,10 @@ interface loginFormInfo {
 
 const Login: React.FC = () => {
   const { register, errors, handleSubmit } = useForm<loginFormInfo>();
-  const [{ response, isLoading, error }, doFetch] = useFetch<LoginResponse>(
-    'api/login',
-  );
-
-  const history = useHistory();
-  useEffect(() => {
-    if (response?.token) {
-      localStorage.setItem('token', response.token);
-      history.push('/');
-    }
-  }, [response, history]);
+  const dispatch = useDispatch();
 
   const handleLoginRequest = (loginData: loginFormInfo) => {
-    doFetch({
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      data: {
-        ...loginData,
-        email: loginData.email + '@competa.com',
-      },
-    });
+    dispatch(login(loginData));
   };
 
   return (
@@ -95,8 +72,6 @@ const Login: React.FC = () => {
                   Login
                 </button>
               </Field>
-              {error && <div>Something went wrong...</div>}
-              {isLoading && <div>Loading ...</div>}
             </div>
           </Form>
         </Box>

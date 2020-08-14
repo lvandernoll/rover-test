@@ -9,6 +9,8 @@ import { IconContainer } from 'components/bulma/elements';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import requireAuth from 'requireAuth';
+import { userState } from 'redux/selectors';
+import { useSelector } from 'react-redux';
 
 const adminPrefix = '/admin';
 
@@ -17,12 +19,12 @@ function getAdminPath(url?: string): string {
 }
 
 const App: React.FC = () => {
+  const token = useSelector(userState).token;
+
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/login">
-          {localStorage.token ? <Redirect to="/" /> : <Login />}
-        </Route>
+        <Route path="/login">{token ? <Redirect to="/" /> : <Login />}</Route>
 
         <Route path={getAdminPath('/:path?')} exact>
           <AdminLayout>
