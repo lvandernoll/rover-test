@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { AppLayout } from 'layout/App/AppLayout';
-import Home from 'pages/Home/Home';
-import Login from 'pages/Login/Login';
-import CreateAssignment from 'pages/createAssignment/createAssignment';
+import Login from 'pages/Login';
+import Home from 'pages/Home';
+import CreateAssignment from 'pages/CreateAssignment';
 import { AdminLayout } from 'layout/Admin/AdminLayout';
 import { IconContainer } from 'components/bulma/elements';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,6 +11,7 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import requireAuth from 'requireAuth';
 import { userState } from 'redux/selectors';
 import { useSelector } from 'react-redux';
+import Docs from 'pages/Docs';
 
 const adminPrefix = '/admin';
 
@@ -50,6 +51,7 @@ const App: React.FC = () => {
           <AppLayout>
             <Switch>
               <Route path="/" exact component={requireAuth(Home)} />
+              <Route path="/docs" component={Docs} />
             </Switch>
           </AppLayout>
         </Route>

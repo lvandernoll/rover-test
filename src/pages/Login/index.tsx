@@ -3,7 +3,8 @@ import classnames from 'classnames';
 import Box from 'components/bulma/elements/Box';
 import Field from 'components/bulma/elements/Field';
 import { useForm } from 'react-hook-form';
-import { Form, Control, Title } from 'components/bulma/elements';
+import { Title } from 'components/bulma/elements';
+import { Form, Control } from 'components/bulma/form';
 import {
   textColorMap,
   gridMap,

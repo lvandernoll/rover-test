@@ -6,9 +6,8 @@ import {
   CardHeaderIcon,
   CardContent,
   CardFooter,
-} from 'components/bulma/components/Card';
-import Assignments from 'components/Assignment';
-import { Tabs, Tab } from 'components/bulma/components/Tabs';
+} from './Card';
+import { Tabs, Tab } from './Tabs';
 
 export {
   Card,
@@ -18,7 +17,6 @@ export {
   CardHeaderIcon,
   CardContent,
   CardFooter,
-  Assignments,
   Tabs,
   Tab,
 };

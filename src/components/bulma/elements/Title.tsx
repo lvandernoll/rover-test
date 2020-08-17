@@ -7,7 +7,6 @@ interface TitleProps {
 }
 
 const headingMap = {
-  normal: '',
   h1: 'is-1',
   h2: 'is-2',
   h3: 'is-3',
@@ -19,13 +18,13 @@ const headingMap = {
 type HeadingType = keyof typeof headingMap;
 
 const Title: React.FC<TitleProps> = ({
-  as = 'h2',
-  styledAs: style = 'normal',
+  as = 'h3',
+  styledAs = 'h3',
   children,
 }) =>
   React.createElement(
     as,
-    { className: classnames('title', headingMap[style]) },
+    { className: classnames('title', headingMap[styledAs]) },
     [children],
   );
 

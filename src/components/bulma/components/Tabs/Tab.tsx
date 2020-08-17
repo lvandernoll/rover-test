@@ -5,18 +5,17 @@ import { NavLink } from 'react-router-dom';
 
 type TabProps = {
   to: string;
+  isActive?: boolean;
 };
 
-const Tab: React.FC<TabProps> = ({ to, children }) => {
+const Tab: React.FC<TabProps> = ({ to, isActive = false, children }) => {
   const location = useLocation();
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState<boolean>(isActive);
 
   useEffect(() => {
-    if (location.pathname === to || location.pathname + location.hash === to) {
-      setActive(true);
-    } else {
-      setActive(false);
-    }
+    setActive(
+      location.pathname === to || location.pathname + location.hash === to,
+    );
   }, [to, location]);
 
   return (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Route, RouteProps } from 'react-router-dom';
-import Login from 'pages/Login/Login';
+import Login from 'pages/Login';
 
 // export interface IPrivateRouteProps  {
 //   isAuth: boolean // is authenticate route

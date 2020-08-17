@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
-import useFetch from 'api/api';
+import useFetch from 'hooks/useFetch';
 import { Box } from 'components/bulma/elements';
-import { Tab, Tabs, Assignments } from 'components/bulma/components';
+import { Tab, Tabs } from 'components/bulma/components';
 import { Assignment } from 'interfaces';
 import { useSelector } from 'react-redux';
 import { userState } from 'redux/selectors';
+import AssignmentCard from 'components/AssignmentCard';
+import { Columns } from 'components/bulma/columns';
 
 const Home: React.FC = () => {
   const token = useSelector(userState).token;
   const [{ response, isLoading, error }, doFetch] = useFetch<Assignment[]>(
-    'api/assignments',
+    '/assignments',
   );
   useEffect(() => {
     doFetch({
@@ -26,27 +28,21 @@ const Home: React.FC = () => {
   return (
     <div>
       {isLoading && <p>Loading...</p>}
-      {error ? (
-        <p>Something went wrong...</p>
-      ) : (
-        <React.Fragment>
+      {error && <p>Something went wrong...</p>}
+      {!isLoading && !error && (
+        <>
           <Tabs size="large">
             <Tab to="/">Assignments</Tab>
             <Tab to="/accepted-assignments">Accepted assignments</Tab>
           </Tabs>
           <Box withTabs>
-            <div className="columns is-8 is-multiline">
+            <Columns gap={8} multiline>
               {assignments?.map((assignment: Assignment) => (
-                <Assignments
-                  key={assignment.id}
-                  title={assignment.title}
-                  description={assignment.description}
-                  points={assignment.points_maximum}
-                />
+                <AssignmentCard key={assignment.id} assignment={assignment} />
               ))}
-            </div>
+            </Columns>
           </Box>
-        </React.Fragment>
+        </>
       )}
     </div>
   );
