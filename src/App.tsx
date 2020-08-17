@@ -1,12 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import { AppLayout } from 'layout/App/AppLayout';
-import Home from 'pages/Home/Home';
-import CreateAssignment from 'pages/createAssignment/createAssignment';
+import Home from 'pages/Home';
+import CreateAssignment from 'pages/CreateAssignment';
 import { AdminLayout } from 'layout/Admin/AdminLayout';
 import { IconContainer } from 'components/bulma/elements';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import Docs from 'pages/Docs';
 
 const adminPrefix = '/admin';
 
@@ -43,6 +44,7 @@ const App: React.FC = () => {
         <Route>
           <AppLayout>
             <Switch>
+              <Route path="/docs" component={Docs} />
               <Route path="/" exact>
                 <Home />
               </Route>
