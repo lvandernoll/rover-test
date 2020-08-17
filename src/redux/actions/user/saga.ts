@@ -8,7 +8,6 @@ import { ActionType } from 'typesafe-actions';
 const fetchToken = (
   userAuth: UserAuth,
 ): Promise<LoginResponse | ErrorResponse> => {
-  console.log(userAuth);
   return fetchApi<LoginResponse | ErrorResponse>('api/login', {
     method: 'POST',
     headers: {
@@ -21,7 +20,6 @@ const fetchToken = (
 };
 
 function* login({ payload }: ActionType<typeof actions.login>) {
-  console.log('test');
   const response = yield fetchToken(payload);
   if (!response.error) {
     yield put({ type: actionTypes.LOGIN_SUCCESS, payload: response });

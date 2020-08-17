@@ -20,6 +20,8 @@ import {
 } from 'components/bulma/elements';
 import { Link, useHistory } from 'react-router-dom';
 import { Assignment } from 'interfaces';
+import { userState } from 'redux/selectors';
+import { useSelector } from 'react-redux';
 
 type AssignmentForm = Omit<Assignment, 'id'>;
 
@@ -36,6 +38,7 @@ type formInfo = {
 };
 
 const CreateAssignment: React.FC<CreateAssignmentProps> = () => {
+  const token = useSelector(userState).token;
   const { register, errors, handleSubmit } = useForm<formInfo>();
   const [{ response, isLoading, error }, doFetch] = useFetch<Assignment[]>(
     'api/assignments',
@@ -51,7 +54,7 @@ const CreateAssignment: React.FC<CreateAssignmentProps> = () => {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        Authorization: localStorage.token,
+        Authorization: token,
       },
       data: {
         ...formData,

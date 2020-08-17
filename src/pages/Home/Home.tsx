@@ -3,8 +3,11 @@ import useFetch from 'api/api';
 import { Box } from 'components/bulma/elements';
 import { Tab, Tabs, Assignments } from 'components/bulma/components';
 import { Assignment } from 'interfaces';
+import { useSelector } from 'react-redux';
+import { userState } from 'redux/selectors';
 
 const Home: React.FC = () => {
+  const token = useSelector(userState).token;
   const [{ response, isLoading, error }, doFetch] = useFetch<Assignment[]>(
     'api/assignments',
   );
@@ -13,10 +16,10 @@ const Home: React.FC = () => {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
-        Authorization: localStorage.token,
+        Authorization: token,
       },
     });
-  }, [doFetch]);
+  }, [doFetch, token]);
 
   const assignments = response;
 
