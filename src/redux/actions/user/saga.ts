@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 import * as actionTypes from './action-types';
 import * as actions from './actions';
 import fetchApi from 'utils/fetchApi';
@@ -29,5 +29,5 @@ function* login({ payload }: ActionType<typeof actions.login>) {
 }
 
 export default function* userSaga() {
-  yield takeLatest(actionTypes.LOGIN, login);
+  yield takeEvery(actionTypes.LOGIN, login);
 }

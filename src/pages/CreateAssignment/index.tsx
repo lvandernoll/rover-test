@@ -36,6 +36,7 @@ const CreateAssignment: React.FC<CreateAssignmentProps> = () => {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
+        Authorization: token,
       },
       data: {
         ...formData,
