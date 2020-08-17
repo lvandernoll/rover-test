@@ -3,7 +3,7 @@ import useFetch from 'hooks/useFetch';
 import classnames from 'classnames';
 import { useForm } from 'react-hook-form';
 import { Size, TextColor, Grid, textColorMap } from 'components/bulma/options';
-import { Title, Label, Box, Field } from 'components/bulma/elements';
+import { Label, Box, Field, Title } from 'components/bulma/elements';
 import { Link, useHistory } from 'react-router-dom';
 import { Assignment } from 'interfaces';
 import { Form, Control } from 'components/bulma/form';
@@ -42,10 +42,8 @@ const CreateAssignment: React.FC<CreateAssignmentProps> = () => {
 
   return (
     <>
-      <Column size={4} offset={4}>
-        <Title as="h3" styledAs="h2">
-          Create Assignment
-        </Title>
+      <Title as="h2">Create Assignment</Title>
+      <Column sizeTablet={7} sizeDesktop={6} sizeWidescreen={5}>
         <Box>
           <Form onSubmit={handleSubmit(handleCreateAssignmentRequest)}>
             <Field>

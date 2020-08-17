@@ -18,6 +18,7 @@ interface Props {
   narrowDesktop?: boolean;
   narrowWidescreen?: boolean;
   narrowFullHD?: boolean;
+  className?: string;
 }
 
 const Column: React.FC<Props> = ({
@@ -35,6 +36,7 @@ const Column: React.FC<Props> = ({
   narrowDesktop,
   narrowWidescreen,
   narrowFullHD,
+  className,
   children,
 }) => {
   const getColumnSize = (
@@ -48,6 +50,7 @@ const Column: React.FC<Props> = ({
     <div
       className={classnames(
         'column',
+        className,
         getColumnSize('', size),
         getColumnSize('', offset, true),
         getColumnSize('mobile', sizeMobile),

@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import useFetch from 'hooks/useFetch';
-import { Box } from 'components/bulma/elements';
-import { Tab, Tabs } from 'components/bulma/components';
 import { Assignment } from 'interfaces';
 import AssignmentCard from 'components/AssignmentCard';
 import { Columns } from 'components/bulma/columns';
+import { Title } from 'components/bulma/elements';
 
-const Home: React.FC = () => {
+const AcceptedAssignmentList: React.FC = () => {
   const [{ response, isLoading, error }, doFetch] = useFetch<Assignment[]>(
     '/assignments',
   );
@@ -26,22 +25,24 @@ const Home: React.FC = () => {
       {isLoading && <p>Loading...</p>}
       {error && <p>Something went wrong...</p>}
       {!isLoading && !error && (
-        <>
-          <Tabs size="large">
-            <Tab to="/">Assignments</Tab>
-            <Tab to="/accepted-assignments">Accepted assignments</Tab>
-          </Tabs>
-          <Box withTabs>
-            <Columns gap={8} multiline>
-              {assignments?.map((assignment: Assignment) => (
-                <AssignmentCard key={assignment.id} assignment={assignment} />
-              ))}
-            </Columns>
-          </Box>
-        </>
+        <Columns gap={8} multiline>
+          {assignments?.map((assignment: Assignment) => (
+            <AssignmentCard
+              key={assignment.id}
+              assignment={assignment}
+              report={{
+                id: 1,
+                assignmentId: 1,
+                playerId: 1,
+                status: 'ACCEPTED',
+                pointsGiven: 2,
+              }}
+            />
+          ))}
+        </Columns>
       )}
     </div>
   );
 };
 
-export default Home;
+export default AcceptedAssignmentList;

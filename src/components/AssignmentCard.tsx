@@ -36,7 +36,7 @@ const AssignmentCard: React.FC<AssignmentProps> = ({
       <CardHeader>
         <CardHeaderTitle>
           <span>{assignment.title}</span>
-          {report && (
+          {report && report.status !== 'ACCEPTED' && (
             <Tag
               className="ml-5 is-capitalized"
               color={assignmentStatusMap[report.status]}
