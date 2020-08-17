@@ -1,6 +1,4 @@
 import React from 'react';
-import classnames from 'classnames';
-import Control from './Control';
 import { Size, TextColor, Grid } from 'components/bulma/options';
 
 type FormProps = {
@@ -13,10 +11,10 @@ type FormProps = {
 
 const Form: React.FC<FormProps> = ({ className, children, onSubmit }) => {
   return (
-    <form onSubmit={onSubmit} className={classnames('block', className)}>
+    <form onSubmit={onSubmit} className={className}>
       {children}
     </form>
   );
 };
 
-export { Form, Control };
+export default Form;

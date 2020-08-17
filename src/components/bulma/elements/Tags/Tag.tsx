@@ -13,6 +13,7 @@ interface TagProps {
   size?: BaseSize;
   rounded?: boolean;
   deleteCross?: boolean;
+  className?: string;
   onClick?: () => void;
 }
 
@@ -22,17 +23,24 @@ const Tag: React.FC<TagProps> = ({
   size = 'normal',
   rounded = false,
   deleteCross = false,
+  className,
   onClick,
   children,
 }) => {
   return React.createElement(
     onClick ? 'a' : 'span',
     {
-      className: classnames('tag', colorMap[color], baseSizeMap[size], {
-        'is-light': light,
-        'is-rounded': rounded,
-        'is-delete': deleteCross,
-      }),
+      className: classnames(
+        'tag',
+        className,
+        colorMap[color],
+        baseSizeMap[size],
+        {
+          'is-light': light,
+          'is-rounded': rounded,
+          'is-delete': deleteCross,
+        },
+      ),
       onClick,
     },
     [children],
