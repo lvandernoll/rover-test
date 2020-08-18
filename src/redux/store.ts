@@ -13,15 +13,21 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './rootSaga';
 import { loadState, saveState } from 'utils/localStorage';
+import {
+  assignmentReducer,
+  AssignmentState,
+} from 'redux/actions/assignments/reducer';
 
 export type RootActions = UserActions;
 
 export interface RootState {
   user: UserState;
+  assignments: AssignmentState;
 }
 
 const rootReducer = combineReducers<RootState>({
   user: userReducer,
+  assignments: assignmentReducer,
 });
 
 const composeEnhancers = composeWithDevTools({
