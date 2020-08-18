@@ -8,6 +8,7 @@ import AdminAssignmentList from 'pages/Admin/AssignmentList';
 import CreateAssignment from 'pages/Admin/CreateAssignment';
 import AcceptedAssignmentList from 'pages/Player/AcceptedAssignmentList';
 import PlayerAssignmentList from 'pages/Player/AssignmentList';
+import ReportList from 'pages/Admin/ReportList';
 
 const adminPrefix = '/admin';
 
@@ -37,6 +38,9 @@ const App: React.FC = () => {
               </Route>
               <Route path={getAdminPath('/create-assignment')} exact>
                 <CreateAssignment />
+              </Route>
+              <Route path={getAdminPath('/reports')} exact>
+                <ReportList />
               </Route>
             </Switch>
           </AdminLayout>

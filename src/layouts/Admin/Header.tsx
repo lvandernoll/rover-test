@@ -6,11 +6,8 @@ import { getAdminPath } from 'App';
 const AdminHeader: React.FC = () => (
   <Header>
     <div className="navbar-start">
-      <NavLink
-        className="navbar-item"
-        to={getAdminPath('/submitted-assignments')}
-      >
-        Submitted assignments
+      <NavLink className="navbar-item" to={getAdminPath('/reports')}>
+        Reports
       </NavLink>
     </div>
   </Header>
