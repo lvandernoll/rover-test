@@ -8,6 +8,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { Assignment } from 'interfaces';
 import { Form, Control } from 'components/bulma/form';
 import { Column } from 'components/bulma/columns';
+import { getAdminPath } from 'App';
 
 type AssignmentForm = Omit<Assignment, 'id'>;
 
@@ -25,7 +26,7 @@ const CreateAssignment: React.FC<CreateAssignmentProps> = () => {
   const history = useHistory();
 
   useEffect(() => {
-    response && history.push('/');
+    response && history.push(getAdminPath('/'));
   }, [response, history]);
 
   const handleCreateAssignmentRequest = (formData: AssignmentForm) => {
@@ -112,7 +113,10 @@ const CreateAssignment: React.FC<CreateAssignmentProps> = () => {
             </Field>
             <Field isGrouped>
               <Control>
-                <button type="submit" className="button">
+                <button
+                  type="submit"
+                  className={classnames('button', { 'is-loading': isLoading })}
+                >
                   Submit
                 </button>
               </Control>
