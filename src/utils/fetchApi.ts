@@ -12,7 +12,7 @@ export default async function fetchApi<T>(
   endpoint: string,
   options: AxiosRequestConfig,
 ) {
-  const baseUrl = process.env.REACT_APP_API_KEY || '';
+  const baseUrl = process.env.REACT_APP_API_URL || '';
 
   return axios(`${baseUrl}${endpoint}`, options)
     .then((response: AxiosResponse<any>) => {

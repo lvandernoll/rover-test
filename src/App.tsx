@@ -21,11 +21,15 @@ function getAdminPath(url?: string): string {
 
 const App: React.FC = () => {
   const token = useSelector(userState).token;
+  const role = 1;
+  const roleCheck = () => {
+    return role === 1 ? <Redirect to="/admin" /> : <Redirect to="/" />;
+  };
 
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/login">{token ? <Redirect to="/" /> : <Login />}</Route>
+        <Route path="/login">{token ? roleCheck : <Login />}</Route>
 
         <Route path={getAdminPath('/:path?')} exact>
           <AdminLayout>

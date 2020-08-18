@@ -3,13 +3,10 @@ import useFetch from 'hooks/useFetch';
 import { Box } from 'components/bulma/elements';
 import { Tab, Tabs } from 'components/bulma/components';
 import { Assignment } from 'interfaces';
-import { useSelector } from 'react-redux';
-import { userState } from 'redux/selectors';
 import AssignmentCard from 'components/AssignmentCard';
 import { Columns } from 'components/bulma/columns';
 
 const Home: React.FC = () => {
-  const token = useSelector(userState).token;
   const [{ response, isLoading, error }, doFetch] = useFetch<Assignment[]>(
     '/assignments',
   );
@@ -18,10 +15,9 @@ const Home: React.FC = () => {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
-        Authorization: token,
       },
     });
-  }, [doFetch, token]);
+  }, [doFetch]);
 
   const assignments = response;
 

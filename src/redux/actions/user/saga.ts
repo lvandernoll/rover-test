@@ -8,7 +8,7 @@ import { ActionType } from 'typesafe-actions';
 const fetchToken = (
   userAuth: UserAuth,
 ): Promise<LoginResponse | ErrorResponse> => {
-  return fetchApi<LoginResponse | ErrorResponse>('api/login', {
+  return fetchApi<LoginResponse | ErrorResponse>('/login', {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
