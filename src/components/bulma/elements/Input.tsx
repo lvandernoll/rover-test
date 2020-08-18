@@ -8,7 +8,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = forwardRef<HTMLInputElement, Props>(
-  ({ inputSize, inputColor, ...props }, forwardedRef) => {
+  ({ inputSize = 'normal', inputColor = 'normal', ...props }, forwardedRef) => {
     return (
       <input
         className={classNames(
