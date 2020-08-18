@@ -3,11 +3,24 @@ import classnames from 'classnames';
 
 type ContainerProps = {
   fluid?: boolean;
+  fullHD?: boolean;
+  widescreen?: boolean;
 };
 
-const Container: React.FC<ContainerProps> = ({ children, fluid = false }) => {
+const Container: React.FC<ContainerProps> = ({
+  children,
+  fluid,
+  fullHD,
+  widescreen,
+}) => {
   return (
-    <div className={classnames('container', { 'is-fluid': fluid })}>
+    <div
+      className={classnames('container', {
+        'is-fluid': fluid,
+        'is-fullhd': fullHD,
+        'is-widescreen': widescreen,
+      })}
+    >
       {children}
     </div>
   );
