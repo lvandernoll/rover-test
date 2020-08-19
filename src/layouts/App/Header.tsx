@@ -3,9 +3,16 @@ import { NavLink } from 'react-router-dom';
 import logo from './logo.svg';
 import classnames from 'classnames';
 import { Tag } from 'components/bulma/elements';
+import { useDispatch } from 'react-redux';
+import { logout } from 'redux/actions/user/actions';
 
 const Header: React.FC = ({ children }) => {
   const [isMenuActive, setIsMenuActive] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <header>
@@ -50,7 +57,9 @@ const Header: React.FC = ({ children }) => {
           <div className="navbar-end">
             <div className="navbar-item">
               <div className="buttons">
-                <button className="button is-primary">Logout</button>
+                <button onClick={handleLogout} className="button is-primary">
+                  Logout
+                </button>
               </div>
             </div>
           </div>

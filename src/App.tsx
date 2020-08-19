@@ -1,13 +1,17 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import AppLayout from 'layouts/App';
 import AdminLayout from 'layouts/Admin';
 import PlayerLayout from 'layouts/Player';
 import Docs from 'pages/General/Docs';
 import AdminAssignmentList from 'pages/Admin/AssignmentList';
-import CreateAssignment from 'pages/Admin/CreateAssignment';
 import AcceptedAssignmentList from 'pages/Player/AcceptedAssignmentList';
 import PlayerAssignmentList from 'pages/Player/AssignmentList';
+import Login from 'pages/Login';
+import requireAuth from 'requireAuth';
+import { userState } from 'redux/selectors';
+import { useSelector } from 'react-redux';
+import CreateAssignment from 'pages/Admin/CreateAssignment';
 import ReportList from 'pages/Admin/ReportList';
 
 const adminPrefix = '/admin';
@@ -17,12 +21,12 @@ export const getAdminPath = (url?: string): string => {
 };
 
 const App: React.FC = () => {
+  const token = useSelector(userState).token;
+
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/login">
-          <p>Login page</p>
-        </Route>
+        <Route path="/login">{token ? <Redirect to="/" /> : <Login />}</Route>
 
         <Route path="/docs">
           <AppLayout>
@@ -33,15 +37,21 @@ const App: React.FC = () => {
         <Route path={getAdminPath('/:path?')} exact>
           <AdminLayout>
             <Switch>
-              <Route path={getAdminPath('/')} exact>
-                <AdminAssignmentList />
-              </Route>
-              <Route path={getAdminPath('/create-assignment')} exact>
-                <CreateAssignment />
-              </Route>
-              <Route path={getAdminPath('/reports')} exact>
-                <ReportList />
-              </Route>
+              <Route
+                exact
+                path={getAdminPath('/')}
+                component={requireAuth(AdminAssignmentList)}
+              />
+              <Route
+                exact
+                path={getAdminPath('/create-assignment')}
+                component={requireAuth(CreateAssignment)}
+              />
+              <Route
+                exact
+                path={getAdminPath('/reports')}
+                component={requireAuth(ReportList)}
+              />
             </Switch>
           </AdminLayout>
         </Route>
@@ -49,12 +59,17 @@ const App: React.FC = () => {
         <Route>
           <PlayerLayout>
             <Switch>
-              <Route path="/" exact>
-                <PlayerAssignmentList />
-              </Route>
-              <Route path="/accepted-assignments" exact>
-                <AcceptedAssignmentList />
-              </Route>
+              <Route
+                exact
+                path="/"
+                component={requireAuth(PlayerAssignmentList)}
+              />
+              <Route
+                exact
+                path="/accepted-assignments"
+                component={requireAuth(AcceptedAssignmentList)}
+              />
+              <Route exact path="/docs" component={Docs} />
             </Switch>
           </PlayerLayout>
         </Route>

@@ -1,7 +1,7 @@
 import {
-  CounterActions,
-  counterReducer,
-  CounterState,
+  UserState,
+  UserActions,
+  userReducer,
 } from 'redux/actions/user/reducer';
 import {
   combineReducers,
@@ -10,16 +10,24 @@ import {
   applyMiddleware,
 } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from './rootSaga';
+import { loadState, saveState } from 'utils/localStorage';
+import {
+  assignmentReducer,
+  AssignmentState,
+} from 'redux/actions/assignments/reducer';
 
-export type RootActions = CounterActions;
+export type RootActions = UserActions;
 
 export interface RootState {
-  counter: CounterState;
+  user: UserState;
+  assignments: AssignmentState;
 }
 
 const rootReducer = combineReducers<RootState>({
-  counter: counterReducer,
+  user: userReducer,
+  assignments: assignmentReducer,
 });
 
 const composeEnhancers = composeWithDevTools({
@@ -27,9 +35,19 @@ const composeEnhancers = composeWithDevTools({
   actionCreators: {},
 });
 
+const sagaMiddleware = createSagaMiddleware();
+
+const initialState = loadState();
+
 export const store = createStore<
   CombinedState<RootState>,
   RootActions,
   unknown,
   null
->(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+>(rootReducer, initialState, composeEnhancers(applyMiddleware(sagaMiddleware)));
+
+store.subscribe(() => {
+  saveState(store.getState());
+});
+
+sagaMiddleware.run(rootSaga);

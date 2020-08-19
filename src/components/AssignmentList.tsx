@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
-import useFetch from 'hooks/useFetch';
+import React from 'react';
 import { Assignment, Report } from 'interfaces';
 import AssignmentCard from 'components/AssignmentCard';
 import { Columns } from 'components/bulma/columns';
+import { assignmentState } from 'redux/selectors';
+import { useSelector } from 'react-redux';
 
 interface Props {
   role?: 'PLAYER' | 'ADMIN';
@@ -10,19 +11,9 @@ interface Props {
 }
 
 const AssignmentList: React.FC<Props> = ({ role, reportFilter }) => {
-  const [{ response, isLoading, error }, doFetch] = useFetch<Assignment[]>(
-    '/assignments',
-  );
-  useEffect(() => {
-    doFetch({
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-      },
-    });
-  }, [doFetch]);
-
-  const assignments = response;
+  const assignments = useSelector(assignmentState).assignments;
+  const isLoading = useSelector(assignmentState).isLoading;
+  const error = useSelector(assignmentState).error;
 
   const reports: Report[] = [
     {

@@ -14,3 +14,7 @@ export interface Report {
   status: Status;
   pointsGiven?: number;
 }
+
+export interface ErrorResponse {
+  error: string;
+}

@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import useFetch from 'hooks/useFetch';
+import React from 'react';
 import classnames from 'classnames';
 import { useForm } from 'react-hook-form';
 import { Size, TextColor, Grid, textColorMap } from 'components/bulma/options';
@@ -9,8 +8,11 @@ import { Assignment } from 'interfaces';
 import { Form, Control } from 'components/bulma/form';
 import { Column } from 'components/bulma/columns';
 import { getAdminPath } from 'App';
+import { useDispatch, useSelector } from 'react-redux';
+import { postAssignment } from 'redux/actions/assignments/actions';
+import { assignmentState } from 'redux/selectors';
 
-type AssignmentForm = Omit<Assignment, 'id'>;
+type AssignmentFormData = Omit<Assignment, 'id'>;
 
 type CreateAssignmentProps = {
   size?: Size;
@@ -18,27 +20,21 @@ type CreateAssignmentProps = {
   grid?: Grid;
 };
 
-const CreateAssignment: React.FC<CreateAssignmentProps> = () => {
-  const { register, errors, handleSubmit } = useForm<AssignmentForm>();
-  const [{ response, isLoading, error }, doFetch] = useFetch<Assignment[]>(
-    '/assignments',
-  );
+const CreateAssignment: React.FC<
+  CreateAssignmentProps | AssignmentFormData
+> = () => {
+  const { register, errors, handleSubmit } = useForm<AssignmentFormData>();
   const history = useHistory();
+  const dispatch = useDispatch();
+  const isLoading = useSelector(assignmentState).isLoading;
+  const success = useSelector(assignmentState).success;
+  const error = useSelector(assignmentState).error;
 
-  useEffect(() => {
-    response && history.push(getAdminPath('/'));
-  }, [response, history]);
-
-  const handleCreateAssignmentRequest = (formData: AssignmentForm) => {
-    doFetch({
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      data: {
-        ...formData,
-      },
-    });
+  const handleCreateAssignmentRequest = async (
+    formData: AssignmentFormData,
+  ) => {
+    await dispatch(postAssignment(formData));
+    success && history.push(getAdminPath('/'));
   };
 
   return (
@@ -127,8 +123,7 @@ const CreateAssignment: React.FC<CreateAssignmentProps> = () => {
               </Control>
             </Field>
           </Form>
-          {error && <div>Something went wrong...</div>}
-          {isLoading && <div>Loading ...</div>}
+          {error && <p className="help">Something went wrong...</p>}
         </Box>
       </Column>
     </>
