@@ -7,9 +7,9 @@ import { Link, useHistory } from 'react-router-dom';
 import { Assignment } from 'interfaces';
 import { Form, Control } from 'components/bulma/form';
 import { Column } from 'components/bulma/columns';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { postAssignment } from 'redux/actions/assignments/actions';
-import { postAssignmentSuccess } from '../../redux/selectors';
+import { postAssignmentSuccess, assignmentState } from '../../redux/selectors';
 
 type AssignmentFormData = Omit<Assignment, 'id'>;
 
@@ -25,10 +25,12 @@ const CreateAssignment: React.FC<
   const { register, errors, handleSubmit } = useForm<AssignmentFormData>();
   const history = useHistory();
   const dispatch = useDispatch();
+  const success = useSelector(assignmentState).success;
+  console.log(success);
 
   const handleCreateAssignmentRequest = (formData: AssignmentFormData) => {
     dispatch(postAssignment(formData));
-    postAssignmentSuccess && history.push('/');
+    success && history.push('/');
   };
 
   return (
