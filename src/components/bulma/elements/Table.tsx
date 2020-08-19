@@ -13,9 +13,10 @@ interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
   fullWidth?: boolean;
 }
 
-interface RowProps extends TableHTMLAttributes<HTMLTableElement> {
+interface RowProps {
   selected?: boolean;
   onClick?: () => void;
+  className?: string;
 }
 
 const Table: TableComponent<TableProps> = ({
@@ -41,8 +42,11 @@ const Table: TableComponent<TableProps> = ({
   </table>
 );
 
-Table.Row = ({ selected, onClick, children }) => (
-  <tr className={classnames({ 'is-selected': selected })} onClick={onClick}>
+Table.Row = ({ selected, onClick, className, children }) => (
+  <tr
+    className={classnames(className, { 'is-selected': selected })}
+    onClick={onClick}
+  >
     {children}
   </tr>
 );

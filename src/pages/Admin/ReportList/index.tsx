@@ -1,15 +1,35 @@
-import React from 'react';
-import { Title, Table, IconContainer } from 'components/bulma/elements';
+import React, { useState } from 'react';
+import { Title, Table, IconContainer, Field } from 'components/bulma/elements';
+import { Control } from 'components/bulma/form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Report, Assignment } from 'interfaces';
+import classnames from 'classnames';
 
 const ReportList: React.FC = () => {
   const verticalAlignStyle: React.CSSProperties = { verticalAlign: 'middle' };
   const buttonNoStyle: React.CSSProperties = {
     background: 'none',
     border: 'none',
-    cursor: 'pointer',
+  };
+
+  const [disabledIndexes, setDisabledIndexes] = useState<number[]>([]);
+
+  const approve = (el: HTMLButtonElement, i: number) => {
+    const select = document.querySelector(
+      `#pointsGiven${i}`,
+    ) as HTMLSelectElement | null;
+    if (select) {
+      console.log(i, 'approved', select.value);
+      setDisabledIndexes([i, ...disabledIndexes]);
+      el.style.opacity = '1';
+    }
+  };
+
+  const reject = (el: HTMLButtonElement, i: number) => {
+    console.log(i, 'rejected');
+    setDisabledIndexes([i, ...disabledIndexes]);
+    el.style.opacity = '1';
   };
 
   const players = [
@@ -88,40 +108,65 @@ const ReportList: React.FC = () => {
                 (a: Assignment) => a.id === r.assignmentId,
               );
               if (player && assignment) {
+                const points: number[] = [];
+                for (let j = 0; j <= assignment.pointsMaximum; j++) {
+                  points.push(j);
+                }
+                const isDisabled: boolean = disabledIndexes.includes(i);
                 return (
-                  <Table.Row key={i}>
-                    <th style={verticalAlignStyle}>
+                  <Table.Row
+                    key={i}
+                    className={classnames({
+                      'has-text-grey-light': isDisabled,
+                    })}
+                  >
+                    <td style={verticalAlignStyle}>
                       {player.firstName} {player.lastName}
-                    </th>
+                    </td>
                     <td style={verticalAlignStyle}>{assignment.title}</td>
                     <td style={verticalAlignStyle}>{assignment.description}</td>
                     <td align="center">
-                      <input
-                        type="text"
-                        className="input is-small has-text-centered"
-                        style={{ width: '50px' }}
-                        inputMode="tel"
-                        defaultValue={assignment.pointsMaximum}
-                        placeholder="1"
-                      />
+                      <div className="select">
+                        <select
+                          disabled={isDisabled}
+                          defaultValue={assignment.pointsMaximum}
+                          id={`pointsGiven${i}`}
+                        >
+                          {points.map((n: number) => (
+                            <option key={n} value={n}>
+                              {n}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                     </td>
                     <td align="center" style={verticalAlignStyle}>
-                      <IconContainer>
-                        <button
-                          className="mr-2 has-text-success"
-                          style={buttonNoStyle}
-                        >
-                          <FontAwesomeIcon icon={faCheck} />
-                        </button>
-                      </IconContainer>
-                      <IconContainer>
-                        <button
-                          className="has-text-danger"
-                          style={buttonNoStyle}
-                        >
-                          <FontAwesomeIcon icon={faTimes} />
-                        </button>
-                      </IconContainer>
+                      <Field isGrouped groupCentered>
+                        <Control>
+                          <IconContainer>
+                            <button
+                              className="button has-text-success"
+                              style={buttonNoStyle}
+                              onClick={(e) => approve(e.currentTarget, i)}
+                              disabled={isDisabled}
+                            >
+                              <FontAwesomeIcon icon={faCheck} />
+                            </button>
+                          </IconContainer>
+                        </Control>
+                        <Control>
+                          <IconContainer>
+                            <button
+                              className="button has-text-danger"
+                              style={buttonNoStyle}
+                              onClick={(e) => reject(e.currentTarget, i)}
+                              disabled={isDisabled}
+                            >
+                              <FontAwesomeIcon icon={faTimes} />
+                            </button>
+                          </IconContainer>
+                        </Control>
+                      </Field>
                     </td>
                   </Table.Row>
                 );
