@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import useFetch from 'hooks/useFetch';
+import React from 'react';
 import classnames from 'classnames';
 import { useForm } from 'react-hook-form';
 import { Size, TextColor, Grid, textColorMap } from 'components/bulma/options';
@@ -8,10 +7,11 @@ import { Link, useHistory } from 'react-router-dom';
 import { Assignment } from 'interfaces';
 import { Form, Control } from 'components/bulma/form';
 import { Column } from 'components/bulma/columns';
-import { useSelector } from 'react-redux';
-import { userState } from 'redux/selectors';
+import { useDispatch } from 'react-redux';
+import { postAssignment } from 'redux/actions/assignments/actions';
+import { postAssignmentSuccess } from '../../redux/selectors';
 
-type AssignmentForm = Omit<Assignment, 'id'>;
+type AssignmentFormData = Omit<Assignment, 'id'>;
 
 type CreateAssignmentProps = {
   size?: Size;
@@ -19,29 +19,16 @@ type CreateAssignmentProps = {
   grid?: Grid;
 };
 
-const CreateAssignment: React.FC<CreateAssignmentProps> = () => {
-  const token = useSelector(userState).token;
-  const { register, errors, handleSubmit } = useForm<AssignmentForm>();
-  const [{ response, isLoading, error }, doFetch] = useFetch<Assignment[]>(
-    '/assignments',
-  );
+const CreateAssignment: React.FC<
+  CreateAssignmentProps | AssignmentFormData
+> = () => {
+  const { register, errors, handleSubmit } = useForm<AssignmentFormData>();
   const history = useHistory();
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    response && history.push('/');
-  }, [response, history]);
-
-  const handleCreateAssignmentRequest = (formData: AssignmentForm) => {
-    doFetch({
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        Authorization: token,
-      },
-      data: {
-        ...formData,
-      },
-    });
+  const handleCreateAssignmentRequest = (formData: AssignmentFormData) => {
+    dispatch(postAssignment(formData));
+    postAssignmentSuccess && history.push('/');
   };
 
   return (
@@ -129,8 +116,8 @@ const CreateAssignment: React.FC<CreateAssignmentProps> = () => {
               </Control>
             </Field>
           </Form>
-          {error && <div>Something went wrong...</div>}
-          {isLoading && <div>Loading ...</div>}
+          {/* {error && <div>Something went wrong...</div>}
+          {isLoading && <div>Loading ...</div>} */}
         </Box>
       </Column>
     </>

@@ -2,6 +2,8 @@ import { createAction } from 'typesafe-actions';
 import * as actionTypes from './action-types';
 import { Assignment, ErrorResponse } from 'interfaces';
 
+export type AssignmentRequest = Omit<Assignment, 'id'>;
+
 export const fetchAssignments = createAction(actionTypes.FETCH_ASSIGNMENTS)<
   Assignment
 >();
@@ -13,11 +15,11 @@ export const fetchAssignmentsFailed = createAction(
 )<ErrorResponse>();
 
 export const postAssignment = createAction(actionTypes.POST_ASSIGNMENT)<
-  Assignment
+  AssignmentRequest
 >();
 export const postAssingmentSuccess = createAction(
   actionTypes.POST_ASSIGNMENT_SUCCESS,
-)<Assignment[]>();
+)<AssignmentRequest>();
 export const postAssignmentsFailed = createAction(
   actionTypes.POST_ASSIGNMENT_FAILED,
 )<ErrorResponse>();

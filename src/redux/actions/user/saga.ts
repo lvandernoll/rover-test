@@ -4,7 +4,7 @@ import * as actions from './actions';
 import fetchApi from 'utils/fetchApi';
 import { UserAuth, LoginResponse, ErrorResponse } from './actions';
 import { ActionType } from 'typesafe-actions';
-import { assignments } from '../assignments/saga';
+import { getAssignments } from '../assignments/saga';
 
 const fetchToken = (
   userAuth: UserAuth,
@@ -24,7 +24,7 @@ function* login({ payload }: ActionType<typeof actions.login>) {
   const response = yield fetchToken(payload);
   if (!response.error) {
     yield put({ type: actionTypes.LOGIN_SUCCESS, payload: response });
-    yield call(assignments);
+    yield call(getAssignments);
   } else {
     yield put({ type: actionTypes.LOGIN_FAILED, payload: response });
   }

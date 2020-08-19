@@ -3,6 +3,5 @@ import userSaga from 'redux/actions/user/saga';
 import assignmentsSaga from './actions/assignments/saga';
 
 export default function* rootSaga() {
-  yield all([userSaga()]);
-  yield all([assignmentsSaga()]);
+  yield all([userSaga(), assignmentsSaga()]);
 }

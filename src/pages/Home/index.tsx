@@ -1,29 +1,16 @@
-import React, { useEffect } from 'react';
-import useFetch from 'hooks/useFetch';
+import React from 'react';
 import { Box } from 'components/bulma/elements';
 import { Tab, Tabs } from 'components/bulma/components';
 import { Assignment } from 'interfaces';
 import { useSelector } from 'react-redux';
-import { userState } from 'redux/selectors';
+import { assignmentState } from 'redux/selectors';
 import AssignmentCard from 'components/AssignmentCard';
 import { Columns } from 'components/bulma/columns';
 
 const Home: React.FC = () => {
-  const token = useSelector(userState).token;
-  const [{ response, isLoading, error }, doFetch] = useFetch<Assignment[]>(
-    '/assignments',
-  );
-  useEffect(() => {
-    doFetch({
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-        Authorization: token,
-      },
-    });
-  }, [doFetch, token]);
-
-  const assignments = response;
+  const assignments = useSelector(assignmentState).assignments;
+  const isLoading = useSelector(assignmentState).isLoading;
+  const error = useSelector(assignmentState).error;
 
   return (
     <div>
@@ -37,7 +24,7 @@ const Home: React.FC = () => {
           </Tabs>
           <Box withTabs>
             <Columns gap={8} multiline>
-              {assignments?.map((assignment: Assignment) => (
+              {assignments.map((assignment: Assignment) => (
                 <AssignmentCard key={assignment.id} assignment={assignment} />
               ))}
             </Columns>
