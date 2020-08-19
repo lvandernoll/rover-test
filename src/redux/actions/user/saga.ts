@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery, call } from 'redux-saga/effects';
 import * as actionTypes from './action-types';
 import * as actions from './actions';
 import fetchApi from 'utils/fetchApi';
@@ -19,12 +19,32 @@ const fetchToken = (
   });
 };
 
+const fetchUser = (token: string): Promise<LoginResponse | ErrorResponse> => {
+  return fetchApi<LoginResponse | ErrorResponse>('/users/me', {
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+      Authorization: token,
+    },
+  });
+};
+
 function* login({ payload }: ActionType<typeof actions.login>) {
-  const response = yield fetchToken(payload);
+  const response = yield call(fetchToken, payload);
   if (!response.error) {
+    yield call(getUserData, response.token);
     yield put({ type: actionTypes.LOGIN_SUCCESS, payload: response });
   } else {
     yield put({ type: actionTypes.LOGIN_FAILED, payload: response });
+  }
+}
+
+function* getUserData(token: string) {
+  const response = yield call(fetchUser, token);
+  if (!response.error) {
+    yield put({ type: actionTypes.USER_DATA_SUCCESS, payload: response.user });
+  } else {
+    yield put({ type: actionTypes.USER_DATA_FAIL, payload: response });
   }
 }
 
