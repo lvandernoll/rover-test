@@ -9,7 +9,7 @@ import { Form, Control } from 'components/bulma/form';
 import { Column } from 'components/bulma/columns';
 import { useDispatch, useSelector } from 'react-redux';
 import { postAssignment } from 'redux/actions/assignments/actions';
-import { postAssignmentSuccess, assignmentState } from '../../redux/selectors';
+import { assignmentState } from '../../redux/selectors';
 
 type AssignmentFormData = Omit<Assignment, 'id'>;
 
@@ -26,7 +26,6 @@ const CreateAssignment: React.FC<
   const history = useHistory();
   const dispatch = useDispatch();
   const success = useSelector(assignmentState).success;
-  console.log(success);
 
   const handleCreateAssignmentRequest = (formData: AssignmentFormData) => {
     dispatch(postAssignment(formData));

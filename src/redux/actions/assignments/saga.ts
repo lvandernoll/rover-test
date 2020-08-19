@@ -52,7 +52,6 @@ function* createAssignment({
 }: ActionType<typeof actions.postAssignment>) {
   const token = yield select(getToken);
   const response = yield postAssignments(token, payload);
-  console.log(response);
   if (!response.error) {
     yield put({
       type: actionTypes.POST_ASSIGNMENT_SUCCESS,
