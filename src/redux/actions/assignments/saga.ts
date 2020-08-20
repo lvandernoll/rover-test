@@ -8,8 +8,8 @@ import {
 } from 'services/http/assignmentRequest';
 
 export function* getAssignments() {
-  const response = yield fetchAssignments();
   try {
+    const response = yield fetchAssignments();
     if (response) {
       yield put({
         type: actionTypes.FETCH_ASSIGNMENTS_SUCCESS,
