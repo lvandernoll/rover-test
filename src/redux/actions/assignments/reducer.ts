@@ -19,11 +19,13 @@ export const assignmentReducer = createReducer<
     ...state,
     error: '',
     isLoading: false,
+    success: false,
   }))
   .handleAction(actions.fetchAssingmentsSuccess, (state, action) => ({
     ...state,
     isLoading: false,
     assignments: action.payload,
+    success: false,
   }))
   .handleAction(actions.fetchAssignmentsFailed, (state, action) => ({
     ...state,

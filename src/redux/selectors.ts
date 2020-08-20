@@ -4,6 +4,12 @@ import { RootState } from './store';
 
 // Assignments
 export const selectAssignmentState = (state: RootState) => state.assignments;
+export const selectAssignments = (state: RootState) =>
+  selectAssignmentState(state).assignments;
+export const selectAssignmentLoadingState = (state: RootState) =>
+  selectAssignmentState(state).isLoading;
+export const selectAssignmentErrorState = (state: RootState) =>
+  selectAssignmentState(state).error;
 export const selectPostAssignmentSuccess = (state: RootState) =>
   selectAssignmentState(state).success;
 

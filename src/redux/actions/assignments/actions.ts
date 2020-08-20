@@ -2,9 +2,7 @@ import { createAction } from 'typesafe-actions';
 import * as actionTypes from './action-types';
 import { Assignment, ErrorResponse, AssignmentRequest } from 'interfaces';
 
-export const fetchAssignments = createAction(actionTypes.FETCH_ASSIGNMENTS)<
-  Assignment
->();
+export const fetchAssignments = createAction(actionTypes.FETCH_ASSIGNMENTS)();
 export const fetchAssingmentsSuccess = createAction(
   actionTypes.FETCH_ASSIGNMENTS_SUCCESS,
 )<Assignment[]>();

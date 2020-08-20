@@ -23,9 +23,7 @@ type CreateAssignmentProps = {
   grid?: Grid;
 };
 
-const CreateAssignment: React.FC<
-  CreateAssignmentProps | AssignmentRequest
-> = () => {
+const CreateAssignment: React.FC<CreateAssignmentProps> = () => {
   const { register, errors, handleSubmit } = useForm<AssignmentRequest>();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -33,8 +31,11 @@ const CreateAssignment: React.FC<
 
   const handleCreateAssignmentRequest = (formData: AssignmentRequest) => {
     dispatch(postAssignment(formData));
-    success && history.push('/');
   };
+
+  if (success) {
+    history.push('/');
+  }
 
   return (
     <>

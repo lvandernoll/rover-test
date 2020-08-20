@@ -32,16 +32,23 @@ export function* getAssignments() {
 function* createAssignment({
   payload,
 }: ActionType<typeof actions.postAssignment>) {
-  const response = yield postAssignments(payload);
-  if (!response.error) {
-    yield put({
-      type: actionTypes.POST_ASSIGNMENT_SUCCESS,
-    });
-    yield call(getAssignments);
-  } else {
+  try {
+    const response = yield postAssignments(payload);
+    if (!response.error) {
+      yield put({
+        type: actionTypes.POST_ASSIGNMENT_SUCCESS,
+      });
+      yield call(getAssignments);
+    } else {
+      yield put({
+        type: actionTypes.POST_ASSIGNMENT_FAILED,
+        payload: response.error,
+      });
+    }
+  } catch (error) {
     yield put({
       type: actionTypes.POST_ASSIGNMENT_FAILED,
-      payload: response.error,
+      payload: error,
     });
   }
 }

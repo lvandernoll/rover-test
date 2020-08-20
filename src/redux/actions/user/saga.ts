@@ -8,9 +8,7 @@ import { getAssignments } from '../assignments/saga';
 function* login({ payload }: ActionType<typeof actions.login>) {
   const response = yield call(fetchToken, payload);
   try {
-    yield put({ type: actionTypes.LOGIN_SUCCESS, payload: response });
-    yield call(getUserData);
-    yield call(getAssignments);
+    yield call(loginSuccess, response);
     if (response.error) {
       yield put({ type: actionTypes.LOGIN_FAILED, payload: response });
     }
@@ -19,12 +17,22 @@ function* login({ payload }: ActionType<typeof actions.login>) {
   }
 }
 
+function* loginSuccess(payload: string) {
+  yield put({ type: actionTypes.LOGIN_SUCCESS, payload });
+  yield call(getUserData);
+  yield call(getAssignments);
+}
+
 function* getUserData() {
-  const response = yield call(fetchUser);
-  if (!response.error) {
-    yield put({ type: actionTypes.USER_DATA_SUCCESS, payload: response });
-  } else {
-    yield put({ type: actionTypes.USER_DATA_FAIL, payload: response });
+  try {
+    const response = yield call(fetchUser);
+    if (!response.error) {
+      yield put({ type: actionTypes.USER_DATA_SUCCESS, payload: response });
+    } else {
+      yield put({ type: actionTypes.USER_DATA_FAIL, payload: response });
+    }
+  } catch (error) {
+    yield put({ type: actionTypes.USER_DATA_FAIL, payload: error });
   }
 }
 
