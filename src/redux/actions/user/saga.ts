@@ -8,8 +8,8 @@ import { getAssignments } from '../assignments/saga';
 function* login({ payload }: ActionType<typeof actions.login>) {
   try {
     const response = yield call(fetchToken, payload);
-    if (!response.error) {
-      yield put({ type: actionTypes.LOGIN_SUCCESS, payload });
+    if (response.token) {
+      yield put({ type: actionTypes.LOGIN_SUCCESS, payload: response });
     } else {
       yield put({ type: actionTypes.LOGIN_FAILED, payload: response });
     }
