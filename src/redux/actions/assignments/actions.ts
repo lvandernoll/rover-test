@@ -1,8 +1,6 @@
 import { createAction } from 'typesafe-actions';
 import * as actionTypes from './action-types';
-import { Assignment, ErrorResponse } from 'interfaces';
-
-export type AssignmentRequest = Omit<Assignment, 'id'>;
+import { Assignment, ErrorResponse, AssignmentRequest } from 'interfaces';
 
 export const fetchAssignments = createAction(actionTypes.FETCH_ASSIGNMENTS)<
   Assignment

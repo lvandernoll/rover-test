@@ -5,6 +5,8 @@ export interface Assignment {
   pointsMaximum: number;
 }
 
+export type AssignmentRequest = Omit<Assignment, 'id'>;
+
 export type Status = 'REVIEW' | 'ACCEPTED' | 'REJECTED';
 
 export interface Report {

@@ -4,14 +4,12 @@ import { useForm } from 'react-hook-form';
 import { Size, TextColor, Grid, textColorMap } from 'components/bulma/options';
 import { Title, Label, Box, Field } from 'components/bulma/elements';
 import { Link, useHistory } from 'react-router-dom';
-import { Assignment } from 'interfaces';
+import { Assignment, AssignmentRequest } from 'interfaces';
 import { Form, Control } from 'components/bulma/form';
 import { Column } from 'components/bulma/columns';
 import { useDispatch, useSelector } from 'react-redux';
 import { postAssignment } from 'redux/actions/assignments/actions';
 import { assignmentState } from '../../redux/selectors';
-
-type AssignmentFormData = Omit<Assignment, 'id'>;
 
 type CreateAssignmentProps = {
   size?: Size;
@@ -20,14 +18,14 @@ type CreateAssignmentProps = {
 };
 
 const CreateAssignment: React.FC<
-  CreateAssignmentProps | AssignmentFormData
+  CreateAssignmentProps | AssignmentRequest
 > = () => {
-  const { register, errors, handleSubmit } = useForm<AssignmentFormData>();
+  const { register, errors, handleSubmit } = useForm<AssignmentRequest>();
   const history = useHistory();
   const dispatch = useDispatch();
   const success = useSelector(assignmentState).success;
 
-  const handleCreateAssignmentRequest = (formData: AssignmentFormData) => {
+  const handleCreateAssignmentRequest = (formData: AssignmentRequest) => {
     dispatch(postAssignment(formData));
     success && history.push('/');
   };

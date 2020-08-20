@@ -5,9 +5,8 @@ import fetchApi from 'utils/fetchApi';
 import { ErrorResponse } from '../user/actions';
 import { select } from 'redux-saga/effects';
 import { getToken } from 'redux/selectors';
-import { Assignment } from 'interfaces';
+import { Assignment, AssignmentRequest } from 'interfaces';
 import { ActionType } from 'typesafe-actions';
-import { AssignmentRequest } from './actions';
 
 const fetchAssignments = (token: string) => {
   return fetchApi<Assignment[] | ErrorResponse>('/assignments', {
