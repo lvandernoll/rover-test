@@ -5,6 +5,13 @@ export interface Assignment {
   pointsMaximum: number;
 }
 
+export interface AssignmentState {
+  assignments: Assignment[];
+  error: string;
+  isLoading: boolean;
+  success: boolean;
+}
+
 export type AssignmentRequest = Omit<Assignment, 'id'>;
 
 export type Status = 'REVIEW' | 'ACCEPTED' | 'REJECTED';

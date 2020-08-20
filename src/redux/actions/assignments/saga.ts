@@ -33,15 +33,22 @@ const postAssignments = (token: string, assignmentData: AssignmentRequest) => {
 export function* getAssignments() {
   const token = yield select(getToken);
   const response = yield fetchAssignments(token);
-  if (token) {
-    yield put({
-      type: actionTypes.FETCH_ASSIGNMENTS_SUCCESS,
-      payload: response,
-    });
-  } else {
+  try {
+    if (token) {
+      yield put({
+        type: actionTypes.FETCH_ASSIGNMENTS_SUCCESS,
+        payload: response,
+      });
+    } else {
+      yield put({
+        type: actionTypes.FETCH_ASSIGNMENTS_FAILED,
+        payload: response,
+      });
+    }
+  } catch (error) {
     yield put({
       type: actionTypes.FETCH_ASSIGNMENTS_FAILED,
-      payload: response,
+      payload: error,
     });
   }
 }
