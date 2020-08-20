@@ -1,4 +1,4 @@
-import fetchApi from 'utils/fetchApi';
+import fetchApi, { defaultHeaders, authHeader } from 'utils/fetchApi';
 import { LoginResponse, ErrorResponse, UserAuth } from 'interfaces';
 
 export const fetchToken = (
@@ -7,7 +7,7 @@ export const fetchToken = (
   return fetchApi<LoginResponse | ErrorResponse>('/login', {
     method: 'POST',
     headers: {
-      'content-type': 'application/json',
+      ...defaultHeaders,
     },
     data: {
       email: userAuth.email + '@competa.com',
@@ -15,14 +15,12 @@ export const fetchToken = (
   });
 };
 
-export const fetchUser = (
-  token: string,
-): Promise<LoginResponse | ErrorResponse> => {
+export const fetchUser = (): Promise<LoginResponse | ErrorResponse> => {
   return fetchApi<LoginResponse | ErrorResponse>('/users/me', {
     method: 'GET',
     headers: {
-      'content-type': 'application/json',
-      Authorization: token,
+      ...defaultHeaders,
+      ...authHeader(),
     },
   });
 };

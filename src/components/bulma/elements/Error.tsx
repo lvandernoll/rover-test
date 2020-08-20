@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 import classNames from 'classnames';
 import { FieldError } from 'react-hook-form';
-import { DeepMap } from 'react-hook-form/dist/types/utils';
 
 const stateMap = {
   error: 'is-danger',
@@ -10,15 +9,14 @@ const stateMap = {
 
 type State = keyof typeof stateMap;
 
-interface Props<T> {
+interface Props {
   state: State;
-  errors: DeepMap<T, FieldError>;
-  name: string;
+  error?: FieldError;
   className?: string;
 }
 
-const showErrorMessage = (errors: any, name: string) => {
-  switch (errors[name]?.type) {
+const showErrorMessage = (error: FieldError) => {
+  switch (error.type) {
     case 'required':
       return 'Field is required.';
     case 'min':
@@ -30,20 +28,15 @@ const showErrorMessage = (errors: any, name: string) => {
     case 'max':
       return 'Your input exceed maxLength';
     case 'pattern':
-      return errors[name];
+      return error.message;
     default:
       return '';
   }
 };
 
-const Error = <T extends Record<string, unknown>>({
-  state,
-  errors,
-  name,
-  className,
-}: Props<T>) => (
+const Error: FC<Props> = ({ state, error, className }) => (
   <p className={classNames('help', stateMap[state], className)}>
-    {errors && showErrorMessage(errors, name)}
+    {error && showErrorMessage(error)}
   </p>
 );
 

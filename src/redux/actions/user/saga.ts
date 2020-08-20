@@ -7,8 +7,8 @@ import { fetchToken, fetchUser } from 'services/http/userRequest';
 function* login({ payload }: ActionType<typeof actions.login>) {
   const response = yield call(fetchToken, payload);
   try {
-    yield call(getUserData, response.token);
     yield put({ type: actionTypes.LOGIN_SUCCESS, payload: response });
+    yield call(getUserData);
     if (response.error) {
       yield put({ type: actionTypes.LOGIN_FAILED, payload: response });
     }
@@ -17,8 +17,8 @@ function* login({ payload }: ActionType<typeof actions.login>) {
   }
 }
 
-function* getUserData(token: string) {
-  const response = yield call(fetchUser, token);
+function* getUserData() {
+  const response = yield call(fetchUser);
   if (!response.error) {
     yield put({ type: actionTypes.USER_DATA_SUCCESS, payload: response });
   } else {

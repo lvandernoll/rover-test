@@ -46,20 +46,9 @@ const Login: React.FC = () => {
                         placeholder="email.."
                         ref={register({ required: true })}
                       />
-                      {/* {errors.email && errors.email.type === 'required' && (
-                        <p
-                          className={classnames(
-                            textColorMap.danger,
-                            textAlignmentMap.left,
-                          )}
-                        >
-                          Field is required.
-                        </p>
-                      )} */}
                       <Error
                         state={'error'}
-                        errors={errors}
-                        name="email"
+                        error={errors.email}
                         className={textAlignmentMap.left}
                       />
                     </Control>
