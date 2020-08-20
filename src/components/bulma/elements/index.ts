@@ -1,3 +1,5 @@
+import Input from './Input';
+import Error from './Error';
 import Box from './Box';
 import Title from './Title';
 import Subtitle from './Subtitle';
@@ -19,4 +21,6 @@ export {
   Label,
   Table,
   IconContainer,
+  Input,
+  Error,
 };
