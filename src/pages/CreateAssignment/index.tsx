@@ -1,9 +1,15 @@
 import React, { useEffect } from 'react';
 import useFetch from 'hooks/useFetch';
-import classnames from 'classnames';
 import { useForm } from 'react-hook-form';
-import { Size, TextColor, Grid, textColorMap } from 'components/bulma/options';
-import { Title, Label, Box, Field } from 'components/bulma/elements';
+import { Size, TextColor, Grid } from 'components/bulma/options';
+import {
+  Title,
+  Label,
+  Box,
+  Field,
+  Input,
+  Error,
+} from 'components/bulma/elements';
 import { Link, useHistory } from 'react-router-dom';
 import { Assignment } from 'interfaces';
 import { Form, Control } from 'components/bulma/form';
@@ -51,27 +57,21 @@ const CreateAssignment: React.FC<CreateAssignmentProps> = () => {
             <Field>
               <Label htmlFor="title">Title</Label>
               <Control>
-                <input
-                  className={classnames('input', { 'is-danger': errors.title })}
+                <Input
+                  error={errors.title}
                   name="title"
                   type="text"
                   placeholder="Read a book"
                   ref={register({ required: 'This field is required' })}
                 />
-                {errors.title && (
-                  <p className={classnames('help', textColorMap.danger)}>
-                    {errors.title.message}
-                  </p>
-                )}
+                <Error error={errors.title} state={'error'} />
               </Control>
             </Field>
             <Field>
               <Label htmlFor="pointsMaximum">Points</Label>
               <Control>
-                <input
-                  className={classnames('input', {
-                    'is-danger': errors.pointsMaximum,
-                  })}
+                <Input
+                  error={errors.pointsMaximum}
                   name="pointsMaximum"
                   id="pointsMaximum"
                   type="tel"
@@ -85,31 +85,22 @@ const CreateAssignment: React.FC<CreateAssignmentProps> = () => {
                     },
                   })}
                 />
-                {errors.pointsMaximum && (
-                  <p className={classnames('help', textColorMap.danger)}>
-                    {errors.pointsMaximum.message}
-                  </p>
-                )}
+                <Error error={errors.pointsMaximum} state={'error'} />
               </Control>
             </Field>
             <Field>
               <Label htmlFor="desciption">Description</Label>
               <Control>
-                <textarea
+                <Input
+                  as={'textarea'}
                   style={{ resize: 'none' }}
-                  className={classnames('textarea', {
-                    'is-danger': errors.description,
-                  })}
+                  error={errors.description}
                   name="description"
                   id="description"
                   placeholder="Read a book to become more knowledgeable"
                   ref={register({ required: 'This field is required' })}
                 />
-                {errors.description && (
-                  <p className={classnames('help', textColorMap.danger)}>
-                    {errors.description.message}
-                  </p>
-                )}
+                <Error error={errors.description} state={'error'} />
               </Control>
             </Field>
             <Field isGrouped>
