@@ -4,8 +4,11 @@ import Section from 'components/bulma/layout/Section';
 import Container from 'components/bulma/layout/Container';
 import Footer from './Footer';
 import { Columns, Column } from 'components/bulma/columns';
+import useRoleAuth from 'hooks/useRoleAuth';
 
 export const AppLayout: React.FC = ({ children }) => {
+  useRoleAuth();
+
   return (
     <>
       <TopBar />

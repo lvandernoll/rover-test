@@ -1,43 +1,32 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { AppLayout } from 'layout/App/AppLayout';
 import Login from 'pages/Login';
 import Home from 'pages/Home';
 import CreateAssignment from 'pages/CreateAssignment';
 import { AdminLayout } from 'layout/Admin/AdminLayout';
-import { IconContainer } from 'components/bulma/elements';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import requireAuth from 'requireAuth';
-import { userState } from 'redux/selectors';
+import { selectUserState } from 'redux/selectors';
 import { useSelector } from 'react-redux';
 import Docs from 'pages/Docs';
-
-const adminPrefix = '/admin';
-
-function getAdminPath(url?: string): string {
-  return adminPrefix + url;
-}
+import { getAdminPath } from 'utils/getAdminPath';
+import AdminHome from 'pages/AdminHome';
 
 const App: React.FC = () => {
-  const token = useSelector(userState).token;
+  const token = useSelector(selectUserState).token;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/login">{token ? <Redirect to="/" /> : <Login />}</Route>
-
         <Route path={getAdminPath('/:path?')} exact>
           <AdminLayout>
             <Switch>
-              <Route path={getAdminPath('/')} exact>
-                <p>Hi Admin</p>
-                <IconContainer>
-                  <Link to={getAdminPath('/create-assignment')}>
-                    <FontAwesomeIcon size="2x" icon={faPlusCircle} />
-                  </Link>
-                </IconContainer>
-              </Route>
+              <Route
+                path={getAdminPath('/')}
+                exact
+                component={requireAuth(AdminHome)}
+              />
               <Route
                 path={getAdminPath('/create-assignment')}
                 exact
@@ -46,7 +35,6 @@ const App: React.FC = () => {
             </Switch>
           </AdminLayout>
         </Route>
-
         <Route>
           <AppLayout>
             <Switch>
