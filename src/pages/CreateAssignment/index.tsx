@@ -15,7 +15,7 @@ import { Form, Control } from 'components/bulma/form';
 import { Column } from 'components/bulma/columns';
 import { useDispatch, useSelector } from 'react-redux';
 import { postAssignment } from 'redux/actions/assignments/actions';
-import { selectAssignmentState } from '../../redux/selectors';
+import { selectPostAssignmentSuccess } from '../../redux/selectors';
 
 type CreateAssignmentProps = {
   size?: Size;
@@ -29,7 +29,7 @@ const CreateAssignment: React.FC<
   const { register, errors, handleSubmit } = useForm<AssignmentRequest>();
   const history = useHistory();
   const dispatch = useDispatch();
-  const success = useSelector(selectAssignmentState).success;
+  const success = useSelector(selectPostAssignmentSuccess);
 
   const handleCreateAssignmentRequest = (formData: AssignmentRequest) => {
     dispatch(postAssignment(formData));
@@ -106,8 +106,6 @@ const CreateAssignment: React.FC<
               </Control>
             </Field>
           </Form>
-          {/* {error && <div>Something went wrong...</div>}
-          {isLoading && <div>Loading ...</div>} */}
         </Box>
       </Column>
     </>

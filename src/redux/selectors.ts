@@ -5,7 +5,7 @@ import { RootState } from './store';
 // Assignments
 export const selectAssignmentState = (state: RootState) => state.assignments;
 export const selectPostAssignmentSuccess = (state: RootState) =>
-  state.assignments.success;
+  selectAssignmentState(state).success;
 
 //Users
 export const selectUserState = (state: RootState) => state.user;
