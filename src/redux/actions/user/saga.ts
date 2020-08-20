@@ -6,10 +6,11 @@ import { fetchToken, fetchUser } from 'services/http/userRequest';
 import { getAssignments } from '../assignments/saga';
 
 function* login({ payload }: ActionType<typeof actions.login>) {
-  const response = yield call(fetchToken, payload);
   try {
-    yield call(loginSuccess, response);
-    if (response.error) {
+    const response = yield call(fetchToken, payload);
+    if (!response.error) {
+      yield put({ type: actionTypes.LOGIN_SUCCESS, payload });
+    } else {
       yield put({ type: actionTypes.LOGIN_FAILED, payload: response });
     }
   } catch (error) {
@@ -17,8 +18,7 @@ function* login({ payload }: ActionType<typeof actions.login>) {
   }
 }
 
-function* loginSuccess(payload: string) {
-  yield put({ type: actionTypes.LOGIN_SUCCESS, payload });
+function* loadDataAfterLogin() {
   yield call(getUserData);
   yield call(getAssignments);
 }
@@ -38,4 +38,5 @@ function* getUserData() {
 
 export default function* userSaga() {
   yield takeEvery(actionTypes.LOGIN, login);
+  yield takeEvery(actionTypes.LOGIN_SUCCESS, loadDataAfterLogin);
 }
