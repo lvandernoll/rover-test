@@ -3,14 +3,14 @@ import { Box } from 'components/bulma/elements';
 import { Tab, Tabs } from 'components/bulma/components';
 import { Assignment } from 'interfaces';
 import { useSelector } from 'react-redux';
-import { assignmentState } from 'redux/selectors';
+import { selectAssignmentState } from 'redux/selectors';
 import AssignmentCard from 'components/AssignmentCard';
 import { Columns } from 'components/bulma/columns';
 
 const Home: React.FC = () => {
-  const assignments = useSelector(assignmentState).assignments;
-  const isLoading = useSelector(assignmentState).isLoading;
-  const error = useSelector(assignmentState).error;
+  const assignments = useSelector(selectAssignmentState).assignments;
+  const isLoading = useSelector(selectAssignmentState).isLoading;
+  const error = useSelector(selectAssignmentState).error;
 
   return (
     <div>

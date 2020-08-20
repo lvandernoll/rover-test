@@ -1,5 +1,4 @@
 import React from 'react';
-import classnames from 'classnames';
 import { useForm } from 'react-hook-form';
 import { Size, TextColor, Grid } from 'components/bulma/options';
 import {
@@ -16,7 +15,7 @@ import { Form, Control } from 'components/bulma/form';
 import { Column } from 'components/bulma/columns';
 import { useDispatch, useSelector } from 'react-redux';
 import { postAssignment } from 'redux/actions/assignments/actions';
-import { assignmentState } from '../../redux/selectors';
+import { selectAssignmentState } from '../../redux/selectors';
 
 type CreateAssignmentProps = {
   size?: Size;
@@ -30,7 +29,7 @@ const CreateAssignment: React.FC<
   const { register, errors, handleSubmit } = useForm<AssignmentRequest>();
   const history = useHistory();
   const dispatch = useDispatch();
-  const success = useSelector(assignmentState).success;
+  const success = useSelector(selectAssignmentState).success;
 
   const handleCreateAssignmentRequest = (formData: AssignmentRequest) => {
     dispatch(postAssignment(formData));

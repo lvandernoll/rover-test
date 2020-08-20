@@ -3,12 +3,14 @@ import * as actionTypes from './action-types';
 import * as actions from './actions';
 import { ActionType } from 'typesafe-actions';
 import { fetchToken, fetchUser } from 'services/http/userRequest';
+import { getAssignments } from '../assignments/saga';
 
 function* login({ payload }: ActionType<typeof actions.login>) {
   const response = yield call(fetchToken, payload);
   try {
     yield put({ type: actionTypes.LOGIN_SUCCESS, payload: response });
     yield call(getUserData);
+    yield call(getAssignments);
     if (response.error) {
       yield put({ type: actionTypes.LOGIN_FAILED, payload: response });
     }
