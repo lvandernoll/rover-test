@@ -5,19 +5,22 @@ import { UserData } from './actions';
 export interface UserState {
   token: string;
   error: string;
-  user: UserData;
+  currentUser: UserData;
 }
 export type UserActions = ActionType<typeof actions>;
 
 const initialState: UserState = {
   token: '',
   error: '',
-  user: {
+  currentUser: {
     email: '',
     firstName: '',
     lastName: '',
-    roleId: null,
-    roleLevel: null,
+    role: {
+      id: null,
+      name: '',
+      level: null,
+    },
   },
 };
 
@@ -37,13 +40,7 @@ export const userReducer = createReducer<UserState, UserActions>(initialState)
   .handleAction(actions.logout, (state) => ({
     ...state,
     token: '',
-    user: {
-      email: '',
-      firstName: '',
-      lastName: '',
-      roleId: null,
-      roleLevel: null,
-    },
+    currentUser: initialState.currentUser,
   }))
   .handleAction(actions.getUserData, (state) => ({
     ...state,
@@ -51,7 +48,7 @@ export const userReducer = createReducer<UserState, UserActions>(initialState)
   }))
   .handleAction(actions.userDataSuccess, (state, action) => ({
     ...state,
-    user: action.payload,
+    currentUser: action.payload,
   }))
   .handleAction(actions.userDataFail, (state, action) => ({
     ...state,

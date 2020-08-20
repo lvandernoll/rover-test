@@ -42,7 +42,7 @@ function* login({ payload }: ActionType<typeof actions.login>) {
 function* getUserData(token: string) {
   const response = yield call(fetchUser, token);
   if (!response.error) {
-    yield put({ type: actionTypes.USER_DATA_SUCCESS, payload: response.user });
+    yield put({ type: actionTypes.USER_DATA_SUCCESS, payload: response });
   } else {
     yield put({ type: actionTypes.USER_DATA_FAIL, payload: response });
   }

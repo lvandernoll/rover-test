@@ -17,8 +17,11 @@ export interface UserData {
   email: string;
   firstName: string;
   lastName: string;
-  roleId: number | null;
-  roleLevel: number | null;
+  role: {
+    id: number | null;
+    name: string;
+    level: number | null;
+  };
 }
 
 export const login = createAction(actionTypes.LOGIN)<UserAuth>();
