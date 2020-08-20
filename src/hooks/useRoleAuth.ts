@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { getUserRoleLevel } from 'redux/selectors';
+import { selectUserRoleLevel } from 'redux/selectors';
 import { useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { roleLevelMap } from 'utils/constants';
@@ -10,7 +10,7 @@ const useRoleAuth = () => {
   const { pathname } = useLocation();
   const isAdminPage = pathname.includes(getAdminPath());
 
-  const userRole = useSelector(getUserRoleLevel);
+  const userRole = useSelector(selectUserRoleLevel);
   if (userRole === roleLevelMap.ALL_PERMISSIONS) {
     !isAdminPage && history.push(getAdminPath());
   } else {

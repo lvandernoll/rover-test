@@ -1,27 +1,18 @@
 import { ActionType, createReducer } from 'typesafe-actions';
 import * as actions from './actions';
-import { UserData } from './actions';
+import { UserData } from 'interfaces';
 
 export interface UserState {
   token: string;
   error: string;
-  currentUser: UserData;
+  currentUser: UserData | null;
 }
 export type UserActions = ActionType<typeof actions>;
 
 const initialState: UserState = {
   token: '',
   error: '',
-  currentUser: {
-    email: '',
-    firstName: '',
-    lastName: '',
-    role: {
-      id: null,
-      name: '',
-      level: null,
-    },
-  },
+  currentUser: null,
 };
 
 export const userReducer = createReducer<UserState, UserActions>(initialState)

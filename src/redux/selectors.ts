@@ -1,7 +1,10 @@
 import { RootState } from './store';
 
-export const userState = (state: RootState) => state.user;
-export const getToken = (state: RootState) => userState(state).token;
-export const getUserRole = (state: RootState) =>
-  userState(state).currentUser.role;
-export const getUserRoleLevel = (state: RootState) => getUserRole(state).level;
+export const selectUserState = (state: RootState) => state.user;
+export const selectToken = (state: RootState) => selectUserState(state).token;
+export const selectcurrentUser = (state: RootState) =>
+  selectUserState(state).currentUser;
+export const selectUserRole = (state: RootState) =>
+  selectcurrentUser(state)?.role;
+export const selectUserRoleLevel = (state: RootState) =>
+  selectUserRole(state)?.level;

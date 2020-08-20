@@ -1,28 +1,6 @@
 import { createAction } from 'typesafe-actions';
 import * as actionTypes from './action-types';
-
-export interface UserAuth {
-  email: string;
-}
-
-export interface LoginResponse {
-  token: string;
-}
-
-export interface ErrorResponse {
-  error: string;
-}
-
-export interface UserData {
-  email: string;
-  firstName: string;
-  lastName: string;
-  role: {
-    id: number | null;
-    name: string;
-    level: number | null;
-  };
-}
+import { LoginResponse, ErrorResponse, UserData, UserAuth } from 'interfaces';
 
 export const login = createAction(actionTypes.LOGIN)<UserAuth>();
 export const loginSuccess = createAction(actionTypes.LOGIN_SUCCESS)<

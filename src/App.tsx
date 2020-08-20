@@ -6,14 +6,14 @@ import Home from 'pages/Home';
 import CreateAssignment from 'pages/CreateAssignment';
 import { AdminLayout } from 'layout/Admin/AdminLayout';
 import requireAuth from 'requireAuth';
-import { userState } from 'redux/selectors';
+import { selectUserState } from 'redux/selectors';
 import { useSelector } from 'react-redux';
 import Docs from 'pages/Docs';
 import { getAdminPath } from 'utils/getAdminPath';
 import AdminHome from 'pages/AdminHome';
 
 const App: React.FC = () => {
-  const token = useSelector(userState).token;
+  const token = useSelector(selectUserState).token;
 
   return (
     <BrowserRouter>

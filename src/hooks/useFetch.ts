@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { userState } from 'redux/selectors';
+import { selectUserState } from 'redux/selectors';
 import { useSelector } from 'react-redux';
 
 axios.defaults.headers.common['Accept'] = 'application/json';
@@ -20,7 +20,7 @@ export default function useFetch<T>(endpoint: string) {
   const [error, setError] = useState<any>(null);
   const [code, setCode] = useState<number>();
   const [options, setOptions] = useState<AxiosRequestConfig>({});
-  const token = useSelector(userState).token;
+  const token = useSelector(selectUserState).token;
 
   const doFetch = useCallback(
     (fetchOptions: AxiosRequestConfig = {}) => {

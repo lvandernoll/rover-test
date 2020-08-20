@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import { colorMap, sizeMap, Size, Color } from 'components/bulma/options';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  inputColor: Color;
-  inputSize: Size;
+  inputColor?: Color;
+  inputSize?: Size;
 }
 
 const Input = forwardRef<HTMLInputElement, Props>(
