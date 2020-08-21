@@ -16,9 +16,13 @@ export const selectPostAssignmentSuccess = (state: RootState) =>
 //Users
 export const selectUserState = (state: RootState) => state.user;
 export const selectToken = (state: RootState) => selectUserState(state).token;
-export const selectcurrentUser = (state: RootState) =>
+export const selectCurrentUser = (state: RootState) =>
   selectUserState(state).currentUser;
+export const selectUserFullName = (state: RootState) => {
+  const userState = selectUserState(state).currentUser;
+  return `${userState?.firstName} ${userState?.lastName}`;
+};
 export const selectUserRole = (state: RootState) =>
-  selectcurrentUser(state)?.role;
+  selectCurrentUser(state)?.role;
 export const selectUserRoleLevel = (state: RootState) =>
   selectUserRole(state)?.level;

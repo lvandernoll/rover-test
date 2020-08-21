@@ -34,12 +34,13 @@ const CreateAssignment: React.FC<CreateAssignmentProps> = () => {
   const error = useSelector(selectAssignmentErrorState);
   const isLoading = useSelector(selectAssignmentLoadingState);
 
-  const handleCreateAssignmentRequest = async (formData: AssignmentRequest) => {
-    await dispatch(postAssignment(formData));
-    if (success) {
-      history.push(getAdminPath('/'));
-    }
+  const handleCreateAssignmentRequest = (formData: AssignmentRequest) => {
+    dispatch(postAssignment(formData));
   };
+
+  if (success) {
+    history.push(getAdminPath('/'));
+  }
 
   return (
     <>

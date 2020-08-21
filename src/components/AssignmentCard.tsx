@@ -53,21 +53,20 @@ const AssignmentCard: React.FC<AssignmentProps> = ({
         </CardHeaderIcon>
       </CardHeader>
       <CardContent>{assignment.description}</CardContent>
-      {!noFooter &&
-        report?.status !== 'ACCEPTED' &&
-        report?.status !== 'REVIEW' && (
-          <CardFooter>
-            <CardFooterItem>
-              <button
-                className="button is-info"
-                style={{ marginRight: 'auto' }}
-                onClick={onClick}
-              >
-                Submit this assignment
-              </button>
-            </CardFooterItem>
-          </CardFooter>
-        )}
+      {!noFooter && report?.status !== 'ACCEPTED' && (
+        <CardFooter>
+          <CardFooterItem>
+            <button
+              className="button is-info"
+              style={{ marginRight: 'auto' }}
+              onClick={onClick}
+              disabled={report?.status === 'REVIEW'}
+            >
+              Submit this assignment
+            </button>
+          </CardFooterItem>
+        </CardFooter>
+      )}
     </Card>
   </Column>
 );

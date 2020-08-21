@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { Tag } from 'components/bulma/elements';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from 'redux/actions/user/actions';
-import { selectUserRoleLevel } from 'redux/selectors';
+import { selectUserRoleLevel, selectUserFullName } from 'redux/selectors';
 import { getAdminPath } from 'utils/getAdminPath';
 import { roleLevelMap } from 'utils/constants';
 
@@ -13,6 +13,7 @@ const Header: React.FC = ({ children }) => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const dispatch = useDispatch();
   const userRole = useSelector(selectUserRoleLevel);
+  const fullName = useSelector(selectUserFullName);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -36,7 +37,7 @@ const Header: React.FC = ({ children }) => {
           >
             <img src={logo} alt="Competa Hero" />
             <h1 className="is-sr-only">Competa Hero</h1>
-            <span className="mr-2">Luuk Gille</span>
+            <span className="mr-2">{fullName}</span>
             <Tag
               color={
                 userRole === roleLevelMap.ALL_PERMISSIONS ? 'danger' : 'info'
