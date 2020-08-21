@@ -3,12 +3,16 @@ import { NavLink } from 'react-router-dom';
 import logo from './logo.svg';
 import classnames from 'classnames';
 import { Tag } from 'components/bulma/elements';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from 'redux/actions/user/actions';
+import { selectUserRoleLevel } from 'redux/selectors';
+import { getAdminPath } from 'utils/getAdminPath';
+import { roleLevelMap } from 'utils/constants';
 
 const Header: React.FC = ({ children }) => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const dispatch = useDispatch();
+  const userRole = useSelector(selectUserRoleLevel);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -22,12 +26,24 @@ const Header: React.FC = ({ children }) => {
         aria-label="main navigation"
       >
         <div className="navbar-brand">
-          <NavLink className="navbar-item is-family-code" to="/">
-            {/* When role = admin, redirect to /admin instead */}
+          <NavLink
+            className="navbar-item is-family-code"
+            to={
+              userRole === roleLevelMap.ALL_PERMISSIONS
+                ? getAdminPath('/')
+                : '/'
+            }
+          >
             <img src={logo} alt="Competa Hero" />
             <h1 className="is-sr-only">Competa Hero</h1>
             <span className="mr-2">Luuk Gille</span>
-            <Tag color="info">Player</Tag>
+            <Tag
+              color={
+                userRole === roleLevelMap.ALL_PERMISSIONS ? 'danger' : 'info'
+              }
+            >
+              {userRole === roleLevelMap.ALL_PERMISSIONS ? 'Admin' : 'Player'}
+            </Tag>
           </NavLink>
           <button
             className={classnames('navbar-burger burger', {

@@ -13,10 +13,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './rootSaga';
 import { loadState, saveState } from 'utils/localStorage';
-import {
-  assignmentReducer,
-  AssignmentState,
-} from 'redux/actions/assignments/reducer';
+import { assignmentReducer } from 'redux/actions/assignments/reducer';
+import { AssignmentState } from 'interfaces';
 
 export type RootActions = UserActions;
 

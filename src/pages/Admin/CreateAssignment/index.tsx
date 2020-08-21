@@ -1,18 +1,24 @@
 import React from 'react';
-import classnames from 'classnames';
 import { useForm } from 'react-hook-form';
-import { Size, TextColor, Grid, textColorMap } from 'components/bulma/options';
-import { Label, Box, Field, Title } from 'components/bulma/elements';
+import { Size, TextColor, Grid } from 'components/bulma/options';
+import { Title, Label, Box, Field } from 'components/bulma/elements';
 import { Link, useHistory } from 'react-router-dom';
-import { Assignment } from 'interfaces';
 import { Form, Control } from 'components/bulma/form';
 import { Column } from 'components/bulma/columns';
 import { getAdminPath } from 'App';
 import { useDispatch, useSelector } from 'react-redux';
 import { postAssignment } from 'redux/actions/assignments/actions';
-import { assignmentState } from 'redux/selectors';
+import { Assignment } from 'interfaces';
+import {
+  selectPostAssignmentSuccess,
+  selectAssignmentErrorState,
+  selectAssignmentLoadingState,
+} from 'redux/selectors';
+import Input from 'components/bulma/elements/Input';
+import Error from 'components/bulma/elements/Error';
+import classnames from 'classnames';
 
-type AssignmentFormData = Omit<Assignment, 'id'>;
+type AssignmentRequest = Omit<Assignment, 'id'>;
 
 type CreateAssignmentProps = {
   size?: Size;
@@ -20,21 +26,19 @@ type CreateAssignmentProps = {
   grid?: Grid;
 };
 
-const CreateAssignment: React.FC<
-  CreateAssignmentProps | AssignmentFormData
-> = () => {
-  const { register, errors, handleSubmit } = useForm<AssignmentFormData>();
+const CreateAssignment: React.FC<CreateAssignmentProps> = () => {
+  const { register, errors, handleSubmit } = useForm<AssignmentRequest>();
   const history = useHistory();
   const dispatch = useDispatch();
-  const isLoading = useSelector(assignmentState).isLoading;
-  const success = useSelector(assignmentState).success;
-  const error = useSelector(assignmentState).error;
+  const success = useSelector(selectPostAssignmentSuccess);
+  const error = useSelector(selectAssignmentErrorState);
+  const isLoading = useSelector(selectAssignmentLoadingState);
 
-  const handleCreateAssignmentRequest = async (
-    formData: AssignmentFormData,
-  ) => {
+  const handleCreateAssignmentRequest = async (formData: AssignmentRequest) => {
     await dispatch(postAssignment(formData));
-    success && history.push(getAdminPath('/'));
+    if (success) {
+      history.push(getAdminPath('/'));
+    }
   };
 
   return (
@@ -46,65 +50,47 @@ const CreateAssignment: React.FC<
             <Field>
               <Label htmlFor="title">Title</Label>
               <Control>
-                <input
-                  className={classnames('input', { 'is-danger': errors.title })}
+                <Input
+                  error={errors.title}
+                  id="title"
                   name="title"
                   type="text"
                   placeholder="Read a book"
-                  ref={register({ required: 'This field is required' })}
+                  ref={register({ required: true })}
                 />
-                {errors.title && (
-                  <p className={classnames('help', textColorMap.danger)}>
-                    {errors.title.message}
-                  </p>
-                )}
+                <Error error={errors.title} state={'error'} />
               </Control>
             </Field>
             <Field>
               <Label htmlFor="pointsMaximum">Points</Label>
               <Control>
-                <input
-                  className={classnames('input', {
-                    'is-danger': errors.pointsMaximum,
-                  })}
+                <Input
+                  error={errors.pointsMaximum}
                   name="pointsMaximum"
                   id="pointsMaximum"
                   type="tel"
                   placeholder="1"
                   defaultValue={1}
                   ref={register({
-                    required: 'This field is required',
-                    pattern: {
-                      value: /^\d+$/,
-                      message: 'Value has to be a number',
-                    },
+                    required: true,
+                    pattern: /^\d+$/,
                   })}
                 />
-                {errors.pointsMaximum && (
-                  <p className={classnames('help', textColorMap.danger)}>
-                    {errors.pointsMaximum.message}
-                  </p>
-                )}
+                <Error error={errors.pointsMaximum} state={'error'} />
               </Control>
             </Field>
             <Field>
               <Label htmlFor="desciption">Description</Label>
               <Control>
-                <textarea
-                  style={{ resize: 'none' }}
-                  className={classnames('textarea', {
-                    'is-danger': errors.description,
-                  })}
+                <Input
+                  as={'textarea'}
+                  error={errors.description}
                   name="description"
                   id="description"
                   placeholder="Read a book to become more knowledgeable"
                   ref={register({ required: 'This field is required' })}
                 />
-                {errors.description && (
-                  <p className={classnames('help', textColorMap.danger)}>
-                    {errors.description.message}
-                  </p>
-                )}
+                <Error error={errors.description} state={'error'} />
               </Control>
             </Field>
             <Field isGrouped>

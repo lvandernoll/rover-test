@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { loadState } from './localStorage';
 
 interface Response<T> {
   data: T;
@@ -7,6 +8,14 @@ interface Response<T> {
 function mapResponse<T>(response: Response<T>): T {
   return response.data;
 }
+
+export const defaultHeaders = {
+  'content-type': 'application/json',
+};
+
+export const authHeader = () => ({
+  Authorization: loadState().user.token,
+});
 
 export default async function fetchApi<T>(
   endpoint: string,

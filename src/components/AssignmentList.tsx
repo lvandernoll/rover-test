@@ -2,7 +2,11 @@ import React from 'react';
 import { Assignment, Report } from 'interfaces';
 import AssignmentCard from 'components/AssignmentCard';
 import { Columns } from 'components/bulma/columns';
-import { assignmentState } from 'redux/selectors';
+import {
+  selectAssignments,
+  selectAssignmentLoadingState,
+  selectAssignmentErrorState,
+} from 'redux/selectors';
 import { useSelector } from 'react-redux';
 
 interface Props {
@@ -11,9 +15,9 @@ interface Props {
 }
 
 const AssignmentList: React.FC<Props> = ({ role, reportFilter }) => {
-  const assignments = useSelector(assignmentState).assignments;
-  const isLoading = useSelector(assignmentState).isLoading;
-  const error = useSelector(assignmentState).error;
+  const assignments = useSelector(selectAssignments);
+  const isLoading = useSelector(selectAssignmentLoadingState);
+  const error = useSelector(selectAssignmentErrorState);
 
   const reports: Report[] = [
     {

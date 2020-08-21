@@ -1,13 +1,6 @@
 import { ActionType, createReducer } from 'typesafe-actions';
 import * as actions from './actions';
-import { Assignment } from 'interfaces';
-
-export interface AssignmentState {
-  assignments: Assignment[];
-  error: string;
-  isLoading: boolean;
-  success: boolean;
-}
+import { AssignmentState } from 'interfaces';
 
 export type AssignmentActions = ActionType<typeof actions>;
 
@@ -26,11 +19,13 @@ export const assignmentReducer = createReducer<
     ...state,
     error: '',
     isLoading: false,
+    success: false,
   }))
   .handleAction(actions.fetchAssingmentsSuccess, (state, action) => ({
     ...state,
     isLoading: false,
     assignments: action.payload,
+    success: false,
   }))
   .handleAction(actions.fetchAssignmentsFailed, (state, action) => ({
     ...state,

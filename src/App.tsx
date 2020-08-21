@@ -7,11 +7,11 @@ import Docs from 'pages/General/Docs';
 import AdminAssignmentList from 'pages/Admin/AssignmentList';
 import AcceptedAssignmentList from 'pages/Player/AcceptedAssignmentList';
 import PlayerAssignmentList from 'pages/Player/AssignmentList';
+import CreateAssignment from 'pages/Admin/CreateAssignment';
 import Login from 'pages/Login';
 import requireAuth from 'requireAuth';
-import { userState } from 'redux/selectors';
+import { selectUserState } from 'redux/selectors';
 import { useSelector } from 'react-redux';
-import CreateAssignment from 'pages/Admin/CreateAssignment';
 import ReportList from 'pages/Admin/ReportList';
 
 const adminPrefix = '/admin';
@@ -21,7 +21,7 @@ export const getAdminPath = (url?: string): string => {
 };
 
 const App: React.FC = () => {
-  const token = useSelector(userState).token;
+  const token = useSelector(selectUserState).token;
 
   return (
     <BrowserRouter>
@@ -55,7 +55,6 @@ const App: React.FC = () => {
             </Switch>
           </AdminLayout>
         </Route>
-
         <Route>
           <PlayerLayout>
             <Switch>
