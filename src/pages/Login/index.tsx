@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import Box from 'components/bulma/elements/Box';
 import Field from 'components/bulma/elements/Field';
 import { useForm } from 'react-hook-form';
-import { Title, Input, Error } from 'components/bulma/elements';
+import { Title } from 'components/bulma/elements';
 import { Form, Control } from 'components/bulma/form';
 import {
   textColorMap,
@@ -12,6 +12,9 @@ import {
 } from 'components/bulma/options';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/actions/user/actions';
+import Section from 'components/bulma/layout/Section';
+import Error from 'components/bulma/elements/Error';
+import Input from 'components/bulma/elements/Input';
 
 interface loginFormInfo {
   email: string;
@@ -26,12 +29,12 @@ const Login: React.FC = () => {
   };
 
   return (
-    <React.Fragment>
-      <div
-        style={{ alignItems: 'center', height: '100vh' }}
-        className={classnames(gridMap.gridCentered)}
-      >
-        <Box>
+    <div
+      style={{ alignItems: 'center', height: '100vh' }}
+      className={classnames(gridMap.gridCentered)}
+    >
+      <Box>
+        <Section>
           <Form onSubmit={handleSubmit(handleLoginRequest)}>
             <div className="has-text-centered px-5">
               <Field isCentered>
@@ -69,9 +72,9 @@ const Login: React.FC = () => {
               </Field>
             </div>
           </Form>
-        </Box>
-      </div>
-    </React.Fragment>
+        </Section>
+      </Box>
+    </div>
   );
 };
 
