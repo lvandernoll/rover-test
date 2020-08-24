@@ -12,7 +12,6 @@ import {
   CardFooterItem,
 } from 'components/bulma/components/Card';
 import { Form, Control } from 'components/bulma/form';
-import AssignmentCard from 'components/AssignmentCard';
 import Box from 'components/bulma/elements/Box';
 import Title from 'components/bulma/elements/Title';
 import Subtitle from 'components/bulma/elements/Subtitle';
@@ -23,7 +22,7 @@ import Label from 'components/bulma/elements/Label';
 import Table from 'components/bulma/elements/Table';
 import { Tabs, Tab } from 'components/bulma/components/Tabs';
 import IconContainer from 'components/bulma/elements/IconWrapper';
-import { Column, Columns } from 'components/bulma/columns';
+import { Column } from 'components/bulma/columns';
 
 const Docs: React.FC = () => (
   <div>
@@ -267,80 +266,6 @@ const Docs: React.FC = () => (
           </Table.Row>
         </tbody>
       </Table>
-    </Box>
-    <Box>
-      <Title>Assignment</Title>
-      <Subtitle>
-        The component to show multiple assignments in a list with
-      </Subtitle>
-      <Columns multiline>
-        <AssignmentCard
-          assignment={{
-            id: 1,
-            title: 'Study Bulma',
-            pointsMaximum: 5,
-            description:
-              'Watch and follow the Traversy Media crash course on Bulma',
-          }}
-          noFooter
-        />
-        <AssignmentCard
-          assignment={{
-            id: 1,
-            title: 'Study Bulma',
-            pointsMaximum: 5,
-            description:
-              'Watch and follow the Traversy Media crash course on Bulma',
-          }}
-          report={{
-            id: 1,
-            playerId: 1,
-            assignmentId: 1,
-            status: 'REVIEW',
-          }}
-        />
-        <AssignmentCard
-          assignment={{
-            id: 1,
-            title: 'Study Bulma',
-            pointsMaximum: 5,
-            description:
-              'Watch and follow the Traversy Media crash course on Bulma',
-          }}
-          report={{
-            id: 1,
-            playerId: 1,
-            assignmentId: 1,
-            pointsGiven: 3,
-            status: 'ACCEPTED',
-          }}
-        />
-        <AssignmentCard
-          assignment={{
-            id: 1,
-            title: 'Study Bulma',
-            pointsMaximum: 5,
-            description:
-              'Watch and follow the Traversy Media crash course on Bulma',
-          }}
-          report={{
-            id: 1,
-            playerId: 1,
-            assignmentId: 1,
-            status: 'REJECTED',
-          }}
-        />
-        <AssignmentCard
-          assignment={{
-            id: 1,
-            title: 'Study Bulma',
-            pointsMaximum: 5,
-            description:
-              'Watch and follow the Traversy Media crash course on Bulma',
-          }}
-          onClick={() => window.alert('Assignment Submitted!')}
-        />
-      </Columns>
     </Box>
     <Box>
       <Form className="column is-one-third">
